@@ -1,4 +1,5 @@
 import MobileNav from '@/components/MobileNav';
+import LoadingAnimation from '@/components/LoadingAnimation';
 import HeroSection from '@/components/HeroSection';
 import WhyLevplanSection from '@/components/WhyLevplanSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
@@ -12,6 +13,7 @@ import Footer from '@/components/Footer';
 export default function Home() {
   return (
     <main className="w-full bg-white">
+      <LoadingAnimation />
       <MobileNav />
       <HeroSection />
       <WhyLevplanSection />

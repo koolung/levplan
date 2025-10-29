@@ -71,7 +71,27 @@ const investmentAccounts = ['TFSA', 'RRSP', 'FHSA', 'Non-Registered', 'Other'];
 
 const FinancialQuestionnaire = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 14;
+
+  // Calculate total steps dynamically - skip steps based on user answers
+  const calculateTotalSteps = (data: FormData) => {
+    let steps = 15;
+    if (!data.hasInvestments) {
+      steps -= 1; // Skip account balances step (step 8)
+    }
+    if (!data.hasOtherDebt) {
+      steps -= 1; // Skip debt balances step (step 13)
+    }
+    return steps;
+  };
+
+  // Map current step to actual step number accounting for skipped steps
+  const getActualStep = (step: number, data: FormData): number => {
+    if (!data.hasInvestments && step > 8) {
+      // Account balances is step 8, so if skipped, shift all subsequent steps
+      return step - 1;
+    }
+    return step;
+  };
 
   const [formData, setFormData] = useState<FormData>({
     hasSpouse: false,
@@ -160,21 +180,78 @@ const FinancialQuestionnaire = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
+    const totalSteps = calculateTotalSteps(formData);
+    let nextStep = currentStep + 1;
+    
+    // Skip account balances (step 8) if no investments
+    if (nextStep === 8 && !formData.hasInvestments) {
+      nextStep = 9;
+    }
+    
+    // Skip debt balances (step 13) if no other debt
+    if (nextStep === 13 && !formData.hasOtherDebt) {
+      nextStep = 14;
+    }
+    
+    // Use 15 as max since that's the actual last step (Contact Information)
+    if (nextStep <= 15) {
+      setCurrentStep(nextStep);
     }
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+    let prevStepNum = currentStep - 1;
+    
+    // Skip account balances (step 8) if no investments
+    if (prevStepNum === 8 && !formData.hasInvestments) {
+      prevStepNum = 7;
+    }
+    
+    // Skip debt balances (step 13) if no other debt
+    if (prevStepNum === 13 && !formData.hasOtherDebt) {
+      prevStepNum = 12;
+    }
+    
+    if (prevStepNum >= 1) {
+      setCurrentStep(prevStepNum);
     }
   };
 
-  const progressPercentage = (currentStep / totalSteps) * 100;
+  const getNextValidStep = (step: number): number => {
+    // If account balances (step 8) should be skipped, return 9
+    if (step === 8 && !formData.hasInvestments) {
+      return 9;
+    }
+    // If debt balances (step 13) should be skipped, return 14
+    if (step === 13 && !formData.hasOtherDebt) {
+      return 14;
+    }
+    return step;
+  };
+
+  // Auto-advance to next valid step if current step should be skipped
+  const validCurrentStep = getNextValidStep(currentStep);
+
+  const totalSteps = calculateTotalSteps(formData);
+  
+  // Calculate visible step for progress display (account for skipped steps)
+  const getVisibleStep = (step: number, data: FormData): number => {
+    let visibleStep = step;
+    if (step > 8 && !data.hasInvestments) {
+      visibleStep -= 1;
+    }
+    if (step > 13 && !data.hasOtherDebt) {
+      visibleStep -= 1;
+    }
+    return visibleStep;
+  };
+  
+  const visibleStep = getVisibleStep(validCurrentStep, formData);
+  const progressPercentage = (visibleStep / totalSteps) * 100;
 
   const renderStep = () => {
-    switch (currentStep) {
+    const stepToRender = validCurrentStep;
+    switch (stepToRender) {
       case 1:
         return (
           <div className="space-y-6">
@@ -891,7 +968,7 @@ const FinancialQuestionnaire = () => {
         <div className="mb-12">
           <div className="flex justify-between items-center mb-4">
             <span className="text-sm font-semibold text-[#5a5a57]">
-              Step {currentStep} of {totalSteps}
+              Step {visibleStep} of {totalSteps}
             </span>
             <span className="text-sm font-semibold text-[#5a5a57]">{Math.round(progressPercentage)}%</span>
           </div>
@@ -912,16 +989,16 @@ const FinancialQuestionnaire = () => {
         <div className="flex gap-4 justify-between">
           <button
             onClick={prevStep}
-            disabled={currentStep === 1}
+            disabled={validCurrentStep === 1}
             className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              currentStep === 1
+              validCurrentStep === 1
                 ? 'bg-[#babbb7] text-white cursor-not-allowed opacity-50'
                 : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7] hover:bg-[#e8e8e8]'
             }`}
           >
             Previous
           </button>
-          {currentStep < totalSteps ? (
+          {validCurrentStep < 15 ? (
             <button
               onClick={nextStep}
               className="px-8 py-3 bg-[var(--primary)] text-white rounded-lg font-semibold hover:opacity-90 transition-all"

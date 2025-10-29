@@ -134,8 +134,8 @@ const RoadmapSection = () => {
                 {/* Right side - Content */}
                 <div className="flex-1 pt-2 md:pt-4">
                   <div className="bg-white rounded-lg p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-2xl font-bold text-[var(--primary)]">
+                  <div className="flex flex-col items-start gap-2 mb-3">
+                      <span className="text-xs font-bold text-[#5a5a57] uppercase tracking-wide">
                         Step {step.number}
                       </span>
                       <h3 className="text-2xl md:text-3xl font-bold text-[#031931]">

@@ -68,9 +68,8 @@ const ContactSection = () => {
         >
           {/* Contact Info Cards */}
           {[
-            { icon: '📧', title: 'Email', value: 'hello@levplan.com' },
-            { icon: '📱', title: 'Phone', value: '+1 (555) 000-0000' },
-            { icon: '📍', title: 'Location', value: 'San Francisco, CA' },
+            { icon: '📧', title: 'Email', value: 'contact@levplan.com' },
+            { icon: '📱', title: 'Phone', value: '+1 (506) 378-4333' },
           ].map((item, index) => (
             <div
               key={index}

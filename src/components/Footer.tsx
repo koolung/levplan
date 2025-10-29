@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -7,9 +9,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-[#e7a832] to-[#f0b94a] bg-clip-text text-transparent mb-4">
-              LevPlan
-            </h3>
+            <Image
+              src="/logo_white.png"
+              alt="LevPlan"
+              width={150}
+              height={60}
+              className="mb-4"
+            />
             <p className="text-[#babbb7]">
               Building beautiful and functional web experiences.
             </p>
