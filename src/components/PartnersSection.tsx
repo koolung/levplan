@@ -19,62 +19,52 @@ const PartnersSection = () => {
   return (
     <section
       id="partners"
-      className="py-16 md:py-24 px-4 bg-white overflow-hidden"
+      className="py-12 md:py-16 px-4 bg-[lab(92_-0.16_-2.27_/_0.64)]"
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#031931] mb-4">
-            Our Partner Network
-          </h2>
-          <p className="text-[#5a5a57] text-lg max-w-2xl mx-auto">
-            We work with Canada's leading financial institutions to deliver the best solutions for our clients.
-          </p>
-        </div>
+      <style>{`
+        @keyframes scrolling {
+          0% {
+            transform: translateX(80%);
+          }
+          100% {
+            transform: translateX(-20%);
+          }
+        }
 
-        {/* Continuous Scrolling Banner */}
-        <div className="relative w-full overflow-hidden bg-gradient-to-r from-white via-white to-white py-8">
-          <style>{`
-            @keyframes scroll {
-              0% {
-                transform: translateX(0);
-              }
-              100% {
-                transform: translateX(calc(-50% - 1000px));
-              }
-            }
-            
-            .partners-scroll-container {
-              display: flex;
-              animation: scroll 20s linear infinite;
-              width: 200%;
-              gap: 20px;
-            }
-            
-            .partners-scroll-container:hover {
-              animation-play-state: paused;
-            }
-            
-            .partner-item {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              flex-shrink: 0;
-              width: calc(100% / 5);
-            }
-          `}</style>
+        .slider-items {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+          animation: scrolling 20s linear infinite;
+        }
 
-          <div className="partners-scroll-container">
+        .slider-items:hover {
+          animation-play-state: paused;
+        }
+
+        .slider-items img {
+          width: 12%;
+          margin: 20px;
+          object-fit: contain;
+        }
+      `}</style>
+
+      <div className="grid place-items-center w-full gap-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#031931]">
+          Our Partners
+        </h1>
+        <div className="flex justify-center items-center w-11/12 md:w-4/5 overflow-hidden bg-white rounded-2xl shadow-lg backdrop-blur-lg border border-white border-opacity-40 md:py-8">
+          <div className="slider-items">
             {[...partners, ...partners].map((partner, index) => (
-              <div key={index} className="partner-item">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  width={600}
-                  height={300}
-                  style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
-                  priority={index < 3}
-                />
-              </div>
+              <Image
+                key={index}
+                src={partner.logo}
+                alt={partner.name}
+                width={80}
+                height={80}
+                priority={index < 3}
+              />
             ))}
           </div>
         </div>

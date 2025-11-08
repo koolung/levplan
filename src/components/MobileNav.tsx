@@ -138,17 +138,39 @@ const MobileNav = () => {
       </nav>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto w-full flex justify-between items-center px-6 py-4">
-          <div className="text-2xl font-bold bg-gradient-to-r from-[#e7a832] to-[#f0b94a] bg-clip-text text-transparent">
-            LevPlan
+      <nav
+        className={`hidden md:flex fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'header-scrolled' : 'header-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto w-full flex justify-between items-center px-6 py-3">
+          {/* Logo Container */}
+          <div className="relative h-12 w-120 flex items-center">
+            <Image
+              src="/images/logo_dark.svg"
+              alt="Logo Dark"
+              width={720}
+              height={720}
+              className={`logo-image logo-dark h-30 object-contain`}
+              priority
+            />
+            <Image
+              src="/images/logo_white.svg"
+              alt="Logo White"
+              width={720}
+              height={720}
+              className={`logo-image logo-white h-30 object-contain`}
+              priority
+            />
           </div>
           <div className="flex gap-8 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[#031931] hover:text-[#e7a832] font-medium transition-colors duration-200"
+                className={`font-medium transition-colors duration-200 ${
+                  isScrolled ? 'text-[#031931] hover:text-[#e7a832]' : 'text-white hover:text-[#e7a832]'
+                }`}
               >
                 {link.label}
               </Link>

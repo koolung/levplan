@@ -161,7 +161,7 @@ const WhyLevplanSection = () => {
                   key={index}
                   className={`absolute w-72 md:w-80 transition-all duration-500 ease-out ${position}`}
                 >
-                  <div className="p-0 bg-white rounded-lg border-2 border-[#babbb7] hover:border-[var(--foreground)] shadow-lg text-center flex flex-col h-full overflow-hidden">
+                  <div className="p-0 bg-white rounded-lg shadow-lg hover:shadow-xl text-center flex flex-col h-full overflow-hidden transition-shadow duration-300">
                     <div className="w-full h-[30%] relative bg-gray-200">
                       <Image
                         src={reason.image}

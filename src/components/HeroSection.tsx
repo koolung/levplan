@@ -32,7 +32,7 @@ const HeroSection = () => {
             <button className="px-8 md:px-10 py-3 md:py-4 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white font-bold rounded-lg hover:shadow-xl transition-shadow duration-400 text-base md:text-lg">
               Get Your Free Plan
             </button>
-            <button className="px-8 md:px-10 py-3 md:py-4 bg-white border-2 border-[var(--primary)] text-[var(--primary)] font-bold rounded-lg hover:bg-[#f5f5f3] transition-colors duration-300 text-base md:text-lg">
+            <button className="px-8 md:px-10 py-3 md:py-4 bg-white text-[var(--primary)] font-bold rounded-lg hover:bg-[#f5f5f3] transition-colors duration-300 text-base md:text-lg">
               Learn More
             </button>
           </div>
