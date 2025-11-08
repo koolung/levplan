@@ -5,6 +5,7 @@ import WhyLevplanSection from '@/components/WhyLevplanSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import PartnersSection from '@/components/PartnersSection';
 import RoadmapSection from '@/components/RoadmapSection';
+import CalendlySection from '@/components/CalendlySection';
 import FAQSection from '@/components/FAQSection';
 import StartNowSection from '@/components/StartNowSection';
 import ContactSection from '@/components/ContactSection';
@@ -20,6 +21,7 @@ export default function Home() {
       <PartnersSection />
       <TestimonialsSection />
       <RoadmapSection />
+      <CalendlySection />
       <FAQSection />
       <StartNowSection />
       <ContactSection />
