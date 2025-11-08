@@ -34,7 +34,7 @@ const CalendlySection = () => {
         </div>
 
         {/* Calendly Embed - Full Size */}
-        <div className="w-full" style={{ height: '100vh' }}>
+        <div className="w-full" style={{ height: '150vh' }}>
           <div
             className="calendly-inline-widget w-full h-full"
             data-url="https://calendly.com/bedfordwebservices-info/30min"
