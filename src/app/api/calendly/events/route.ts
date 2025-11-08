@@ -26,22 +26,39 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Use personal access token
-    const token = process.env.CALENDLY_PERSONAL_ACCESS_TOKEN;
+    // Use OAuth token from cookie
+    const oauthToken = request.cookies.get('calendly_access_token')?.value;
 
-    if (!token) {
+    if (!oauthToken) {
       return NextResponse.json(
-        { error: 'Calendly token not configured' },
-        { status: 500 }
+        { 
+          error: 'User not authenticated',
+          message: 'Please authenticate with Calendly first'
+        },
+        { status: 401 }
       );
     }
 
+    console.log('✅ OAuth token found, proceeding with event creation');
+
     // Create the event
     console.log('📍 Creating event in Calendly...');
-    const response = await fetch('https://api.calendly.com/scheduled_events', {
+    console.log('Request body:', {
+      event_type_uri: eventTypeUri,
+      invitees_emails: [inviteeEmail],
+      invitees_names: [inviteeName || 'Guest'],
+      start_time: startTime,
+      end_time: endTime,
+    });
+
+    // Try the correct endpoint for scheduled events
+    const eventEndpoint = 'https://api.calendly.com/scheduled_events';
+    console.log('📍 Endpoint:', eventEndpoint);
+
+    let response = await fetch(eventEndpoint, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${oauthToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -59,6 +76,20 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const errorData = await response.text();
       console.error('❌ Event creation error:', response.status, errorData);
+      
+      // Log the full error for debugging
+      try {
+        const errorJson = JSON.parse(errorData);
+        console.error('📋 Error details:', errorJson);
+      } catch (e) {
+        console.error('📋 Error details:', errorData);
+      }
+
+      // If 404, the endpoint might not exist - provide helpful error
+      if (response.status === 404) {
+        console.error('⚠️  Endpoint not found. This endpoint may require OAuth token instead of Personal Access Token.');
+      }
+      
       return NextResponse.json(
         { error: 'Failed to create event', details: errorData },
         { status: response.status }
