@@ -16,7 +16,7 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center px-4 pt-24 md:pt-0 overflow-hidden"
     >
-      <BackgroundVideo />
+      {/* <BackgroundVideo /> */}
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
@@ -33,7 +33,8 @@ const HeroSection = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-[#f5f5f3] mb-8 max-w-2xl mx-auto leading-relaxed">
-            Get your personalized financial plan today. Achieve your retirement goals, eliminate debt, and build lasting wealth with expert guidance tailored to you.
+            Get your personalized financial plan today. <br></br>Takes about 3 minutes - Absolutely free - Get 3 instant retirement planning
+recommendations.
           </p>
 
           <div className="flex justify-center mb-12">

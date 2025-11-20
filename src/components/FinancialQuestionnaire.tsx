@@ -1,1018 +1,501 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import MobileNav from './MobileNav';
+import Footer from './Footer';
 
 interface FormData {
-  // Basic Info
-  hasSpouse: boolean;
-  age: string;
-  spouseAge: string;
-  retirementAge: string;
-  alreadyRetired: boolean;
-  spouseAlreadyRetired: boolean;
-
-  // Personal Info
-  firstName: string;
-  lastName: string;
-  spouseFirstName: string;
-  spouseLastName: string;
-
-  // Family
-  hasKids: boolean;
-  children: Array<{ age: string }>;
-
-  // Risk & Income
-  riskTolerance: number;
-  spouseRiskTolerance: number;
-  annualIncome: string;
-  spouseAnnualIncome: string;
-
-  // Investments
-  hasInvestments: boolean;
-  investmentAccounts: string[];
-  accountBalances: Record<string, string>;
-
-  // Workplace Pension
-  hasWorkplacePension: boolean;
-  spouseHasWorkplacePension: boolean;
-  pensionIncome: string;
-  spousePensionIncome: string;
-
-  // Monthly Savings
-  monthlySavings: string;
-  spouseMonthlySavings: string;
-
-  // Housing
-  homeOwnership: 'own' | 'rent' | '';
-  homeValue: string;
-  mortgageBalance: string;
-  mortgagePayment: string;
-  rentPayment: string;
-
-  // Debt
-  hasOtherDebt: boolean;
-  debtTypes: string[];
-  debtBalances: Record<string, string>;
-
-  // Life Expectancy
-  gender: 'male' | 'female' | '';
-  spouseGender: 'male' | 'female' | '';
-  smoker: boolean;
-  spouseSmoker: boolean;
-
-  // Contact
-  zipCode: string;
+  // Initial Page
+  name: string;
   email: string;
+  phone: string;
+  agreedToTerms: boolean;
+
+  // Questions
+  idealRetirement: string;
+  monthlyIncome: string;
+  retirementFactor: string[];
+  lifestyleExpenses: string;
+  investmentConfidence: string;
+  marketDropPlan: string;
+  retirementConcerns: string;
+  moneyLegacy: string;
+  trustAdvisors: string;
+  lastReview: string;
+  automaticSavings: string;
+  financialAdvisorExperience: string;
+  decisionMakers: string;
+  futureProjects: string;
+  financialRating: string;
 }
 
-const debtOptions = ['Credit Card', 'Real Estate', 'Student Loan', 'Car', 'Other'];
-const investmentAccounts = ['TFSA', 'RRSP', 'FHSA', 'Non-Registered', 'Other'];
-
 const FinancialQuestionnaire = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-
-  // Calculate total steps dynamically - skip steps based on user answers
-  const calculateTotalSteps = (data: FormData) => {
-    let steps = 15;
-    if (!data.hasInvestments) {
-      steps -= 1; // Skip account balances step (step 8)
-    }
-    if (!data.hasOtherDebt) {
-      steps -= 1; // Skip debt balances step (step 13)
-    }
-    return steps;
-  };
-
-  // Map current step to actual step number accounting for skipped steps
-  const getActualStep = (step: number, data: FormData): number => {
-    if (!data.hasInvestments && step > 8) {
-      // Account balances is step 8, so if skipped, shift all subsequent steps
-      return step - 1;
-    }
-    return step;
-  };
-
+  const [currentStep, setCurrentStep] = useState(0); // 0 = initial page, 1-15 = questions
   const [formData, setFormData] = useState<FormData>({
-    hasSpouse: false,
-    age: '',
-    spouseAge: '',
-    retirementAge: '',
-    alreadyRetired: false,
-    spouseAlreadyRetired: false,
-    firstName: '',
-    lastName: '',
-    spouseFirstName: '',
-    spouseLastName: '',
-    hasKids: false,
-    children: [],
-    riskTolerance: 3,
-    spouseRiskTolerance: 3,
-    annualIncome: '',
-    spouseAnnualIncome: '',
-    hasInvestments: false,
-    investmentAccounts: [],
-    accountBalances: {},
-    hasWorkplacePension: false,
-    spouseHasWorkplacePension: false,
-    pensionIncome: '',
-    spousePensionIncome: '',
-    monthlySavings: '',
-    spouseMonthlySavings: '',
-    homeOwnership: '',
-    homeValue: '',
-    mortgageBalance: '',
-    mortgagePayment: '',
-    rentPayment: '',
-    hasOtherDebt: false,
-    debtTypes: [],
-    debtBalances: {},
-    gender: '',
-    spouseGender: '',
-    smoker: false,
-    spouseSmoker: false,
-    zipCode: '',
+    name: '',
     email: '',
+    phone: '',
+    agreedToTerms: false,
+    idealRetirement: '',
+    monthlyIncome: '',
+    retirementFactor: [],
+    lifestyleExpenses: '',
+    investmentConfidence: '',
+    marketDropPlan: '',
+    retirementConcerns: '',
+    moneyLegacy: '',
+    trustAdvisors: '',
+    lastReview: '',
+    automaticSavings: '',
+    financialAdvisorExperience: '',
+    decisionMakers: '',
+    futureProjects: '',
+    financialRating: '',
   });
 
-  const handleInputChange = (field: keyof FormData, value: any) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleAddChild = () => {
-    setFormData((prev) => ({
-      ...prev,
-      children: [...prev.children, { age: '' }],
-    }));
-  };
-
-  const handleRemoveChild = (index: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      children: prev.children.filter((_, i) => i !== index),
-    }));
-  };
-
-  const handleUpdateChild = (index: number, age: string) => {
-    setFormData((prev) => {
-      const updated = [...prev.children];
-      updated[index].age = age;
-      return { ...prev, children: updated };
-    });
-  };
-
-  const handleAccountToggle = (account: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      investmentAccounts: prev.investmentAccounts.includes(account)
-        ? prev.investmentAccounts.filter((a) => a !== account)
-        : [...prev.investmentAccounts, account],
-    }));
-  };
-
-  const handleDebtToggle = (debt: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      debtTypes: prev.debtTypes.includes(debt)
-        ? prev.debtTypes.filter((d) => d !== debt)
-        : [...prev.debtTypes, debt],
-    }));
-  };
-
-  const nextStep = () => {
-    const totalSteps = calculateTotalSteps(formData);
-    let nextStep = currentStep + 1;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const target = e.target as HTMLInputElement;
     
-    // Skip account balances (step 8) if no investments
-    if (nextStep === 8 && !formData.hasInvestments) {
-      nextStep = 9;
-    }
-    
-    // Skip debt balances (step 13) if no other debt
-    if (nextStep === 13 && !formData.hasOtherDebt) {
-      nextStep = 14;
-    }
-    
-    // Use 15 as max since that's the actual last step (Contact Information)
-    if (nextStep <= 15) {
-      setCurrentStep(nextStep);
-    }
-  };
-
-  const prevStep = () => {
-    let prevStepNum = currentStep - 1;
-    
-    // Skip account balances (step 8) if no investments
-    if (prevStepNum === 8 && !formData.hasInvestments) {
-      prevStepNum = 7;
-    }
-    
-    // Skip debt balances (step 13) if no other debt
-    if (prevStepNum === 13 && !formData.hasOtherDebt) {
-      prevStepNum = 12;
-    }
-    
-    if (prevStepNum >= 1) {
-      setCurrentStep(prevStepNum);
+    if (type === 'checkbox') {
+      if (name === 'retirementFactor') {
+        setFormData(prev => ({
+          ...prev,
+          retirementFactor: target.checked
+            ? [...prev.retirementFactor, value]
+            : prev.retirementFactor.filter(item => item !== value)
+        }));
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          [name]: target.checked
+        }));
+      }
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
     }
   };
 
-  const getNextValidStep = (step: number): number => {
-    // If account balances (step 8) should be skipped, return 9
-    if (step === 8 && !formData.hasInvestments) {
-      return 9;
+  const handleNext = () => {
+    if (currentStep === 0) {
+      // Validate initial page
+      if (!formData.name || !formData.email || !formData.agreedToTerms) {
+        alert('Please fill in all required fields and agree to the terms.');
+        return;
+      }
     }
-    // If debt balances (step 13) should be skipped, return 14
-    if (step === 13 && !formData.hasOtherDebt) {
-      return 14;
-    }
-    return step;
+    setCurrentStep(currentStep + 1);
   };
 
-  // Auto-advance to next valid step if current step should be skipped
-  const validCurrentStep = getNextValidStep(currentStep);
-
-  const totalSteps = calculateTotalSteps(formData);
-  
-  // Calculate visible step for progress display (account for skipped steps)
-  const getVisibleStep = (step: number, data: FormData): number => {
-    let visibleStep = step;
-    if (step > 8 && !data.hasInvestments) {
-      visibleStep -= 1;
-    }
-    if (step > 13 && !data.hasOtherDebt) {
-      visibleStep -= 1;
-    }
-    return visibleStep;
+  const handlePrevious = () => {
+    setCurrentStep(currentStep - 1);
   };
-  
-  const visibleStep = getVisibleStep(validCurrentStep, formData);
-  const progressPercentage = (visibleStep / totalSteps) * 100;
 
-  const renderStep = () => {
-    const stepToRender = validCurrentStep;
-    switch (stepToRender) {
-      case 1:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">How old are you?</h2>
-            <input
-              type="number"
-              placeholder="Your age"
-              value={formData.age}
-              onChange={(e) => handleInputChange('age', e.target.value)}
-              className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-            />
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={formData.hasSpouse}
-                onChange={(e) => handleInputChange('hasSpouse', e.target.checked)}
-                className="w-5 h-5"
-              />
-              <span className="text-lg text-[#5a5a57]">I have a spouse/partner</span>
-            </label>
-            {formData.hasSpouse && (
-              <input
-                type="number"
-                placeholder="Spouse age"
-                value={formData.spouseAge}
-                onChange={(e) => handleInputChange('spouseAge', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-              />
-            )}
-          </div>
-        );
-
-      case 2:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">When would you like to retire?</h2>
-            <input
-              type="number"
-              placeholder="Retirement age"
-              value={formData.retirementAge}
-              onChange={(e) => handleInputChange('retirementAge', e.target.value)}
-              className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-            />
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={formData.alreadyRetired}
-                onChange={(e) => handleInputChange('alreadyRetired', e.target.checked)}
-                className="w-5 h-5"
-              />
-              <span className="text-lg text-[#5a5a57]">I am already retired</span>
-            </label>
-            {formData.hasSpouse && (
-              <>
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.spouseAlreadyRetired}
-                    onChange={(e) => handleInputChange('spouseAlreadyRetired', e.target.checked)}
-                    className="w-5 h-5"
-                  />
-                  <span className="text-lg text-[#5a5a57]">My spouse is already retired</span>
-                </label>
-              </>
-            )}
-          </div>
-        );
-
-      case 3:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">What's your name?</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="First name"
-                value={formData.firstName}
-                onChange={(e) => handleInputChange('firstName', e.target.value)}
-                className="px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Last name"
-                value={formData.lastName}
-                onChange={(e) => handleInputChange('lastName', e.target.value)}
-                className="px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-              />
-            </div>
-            {formData.hasSpouse && (
-              <>
-                <h3 className="text-xl font-semibold text-[#031931] mt-6">Spouse's name</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    placeholder="First name"
-                    value={formData.spouseFirstName}
-                    onChange={(e) => handleInputChange('spouseFirstName', e.target.value)}
-                    className="px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Last name"
-                    value={formData.spouseLastName}
-                    onChange={(e) => handleInputChange('spouseLastName', e.target.value)}
-                    className="px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                  />
-                </div>
-              </>
-            )}
-          </div>
-        );
-
-      case 4:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Do you have kids?</h2>
-            <div className="flex gap-4">
-              <button
-                onClick={() => {
-                  handleInputChange('hasKids', true);
-                  if (formData.children.length === 0) {
-                    handleAddChild();
-                  }
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  formData.hasKids
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => {
-                  handleInputChange('hasKids', false);
-                  handleInputChange('children', []);
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  !formData.hasKids
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                No
-              </button>
-            </div>
-            {formData.hasKids && (
-              <div className="space-y-4 mt-6">
-                {formData.children.map((child, index) => (
-                  <div key={index} className="flex gap-3 items-end">
-                    <div className="flex-1">
-                      <label className="block text-sm font-semibold text-[#031931] mb-2">
-                        Child {index + 1} Age
-                      </label>
-                      <input
-                        type="number"
-                        placeholder="Age"
-                        value={child.age}
-                        onChange={(e) => handleUpdateChild(index, e.target.value)}
-                        className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                      />
-                    </div>
-                    {formData.children.length > 1 && (
-                      <button
-                        onClick={() => handleRemoveChild(index)}
-                        className="px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                      >
-                        Remove
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button
-                  onClick={handleAddChild}
-                  className="w-full px-4 py-3 border-2 border-[var(--primary)] text-[var(--primary)] rounded-lg font-semibold hover:bg-[#f5f5f3]"
-                >
-                  + Add Another Child
-                </button>
-              </div>
-            )}
-          </div>
-        );
-
-      case 5:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Risk Tolerance</h2>
-            <p className="text-lg text-[#5a5a57]">How comfortable are you with investment risk?</p>
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between items-center mb-3">
-                  <span className="font-semibold text-[#031931]">Your risk tolerance</span>
-                  <span className="text-[var(--primary)] font-bold text-xl">{formData.riskTolerance}</span>
-                </div>
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  value={formData.riskTolerance}
-                  onChange={(e) => handleInputChange('riskTolerance', parseInt(e.target.value))}
-                  className="w-full h-3 bg-[#babbb7] rounded-lg appearance-none cursor-pointer accent-[var(--primary)]"
-                />
-                <div className="flex justify-between text-sm text-[#5a5a57] mt-2">
-                  <span>1 (Little)</span>
-                  <span>3 (Moderate)</span>
-                  <span>5 (Large)</span>
-                </div>
-              </div>
-              {formData.hasSpouse && (
-                <div>
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="font-semibold text-[#031931]">Spouse's risk tolerance</span>
-                    <span className="text-[var(--primary)] font-bold text-xl">{formData.spouseRiskTolerance}</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="1"
-                    max="5"
-                    value={formData.spouseRiskTolerance}
-                    onChange={(e) => handleInputChange('spouseRiskTolerance', parseInt(e.target.value))}
-                    className="w-full h-3 bg-[#babbb7] rounded-lg appearance-none cursor-pointer accent-[var(--primary)]"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        );
-
-      case 6:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Annual Income</h2>
-            <div>
-              <label className="block text-sm font-semibold text-[#031931] mb-2">Your gross annual income</label>
-              <input
-                type="number"
-                placeholder="$0"
-                value={formData.annualIncome}
-                onChange={(e) => handleInputChange('annualIncome', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-              />
-            </div>
-            {formData.hasSpouse && (
-              <div>
-                <label className="block text-sm font-semibold text-[#031931] mb-2">
-                  Spouse's gross annual income
-                </label>
-                <input
-                  type="number"
-                  placeholder="$0"
-                  value={formData.spouseAnnualIncome}
-                  onChange={(e) => handleInputChange('spouseAnnualIncome', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                />
-              </div>
-            )}
-          </div>
-        );
-
-      case 7:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Investment & Savings Accounts</h2>
-            <p className="text-lg text-[#5a5a57]">Do you have funds in investment or savings accounts?</p>
-            <div className="flex gap-4">
-              <button
-                onClick={() => {
-                  handleInputChange('hasInvestments', true);
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  formData.hasInvestments
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => {
-                  handleInputChange('hasInvestments', false);
-                  handleInputChange('investmentAccounts', []);
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  !formData.hasInvestments
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                No
-              </button>
-            </div>
-            {formData.hasInvestments && (
-              <div className="space-y-3 mt-6">
-                <p className="font-semibold text-[#031931]">Which types of accounts do you have?</p>
-                {investmentAccounts.map((account) => (
-                  <label key={account} className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={formData.investmentAccounts.includes(account)}
-                      onChange={() => handleAccountToggle(account)}
-                      className="w-5 h-5"
-                    />
-                    <span className="text-lg text-[#5a5a57]">{account}</span>
-                  </label>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-
-      case 8:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Account Balances</h2>
-            <p className="text-lg text-[#5a5a57]">Enter the balance for each account type</p>
-            <div className="space-y-4">
-              {formData.investmentAccounts.map((account) => (
-                <div key={account}>
-                  <label className="block text-sm font-semibold text-[#031931] mb-2">{account} Balance</label>
-                  <input
-                    type="number"
-                    placeholder="$0"
-                    value={formData.accountBalances[account] || ''}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        accountBalances: { ...prev.accountBalances, [account]: e.target.value },
-                      }))
-                    }
-                    className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 9:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Workplace Pension</h2>
-            <p className="text-lg text-[#5a5a57]">Do you have a workplace pension?</p>
-            <div className="flex gap-4">
-              <button
-                onClick={() => handleInputChange('hasWorkplacePension', true)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  formData.hasWorkplacePension
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => handleInputChange('hasWorkplacePension', false)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  !formData.hasWorkplacePension
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                No
-              </button>
-            </div>
-            {formData.hasWorkplacePension && (
-              <div>
-                <label className="block text-sm font-semibold text-[#031931] mb-2">
-                  Annual pension income in retirement
-                </label>
-                <input
-                  type="number"
-                  placeholder="$0"
-                  value={formData.pensionIncome}
-                  onChange={(e) => handleInputChange('pensionIncome', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                />
-              </div>
-            )}
-            {formData.hasSpouse && (
-              <>
-                <div className="border-t-2 border-[#babbb7] pt-6">
-                  <p className="font-semibold text-[#031931] mb-4">Spouse's workplace pension</p>
-                  <div className="flex gap-4">
-                    <button
-                      onClick={() => handleInputChange('spouseHasWorkplacePension', true)}
-                      className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                        formData.spouseHasWorkplacePension
-                          ? 'bg-[var(--primary)] text-white'
-                          : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                      }`}
-                    >
-                      Yes
-                    </button>
-                    <button
-                      onClick={() => handleInputChange('spouseHasWorkplacePension', false)}
-                      className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                        !formData.spouseHasWorkplacePension
-                          ? 'bg-[var(--primary)] text-white'
-                          : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                      }`}
-                    >
-                      No
-                    </button>
-                  </div>
-                  {formData.spouseHasWorkplacePension && (
-                    <div className="mt-4">
-                      <label className="block text-sm font-semibold text-[#031931] mb-2">
-                        Annual pension income in retirement
-                      </label>
-                      <input
-                        type="number"
-                        placeholder="$0"
-                        value={formData.spousePensionIncome}
-                        onChange={(e) => handleInputChange('spousePensionIncome', e.target.value)}
-                        className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                      />
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-        );
-
-      case 10:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Monthly Savings & Investments</h2>
-            <p className="text-lg text-[#5a5a57]">
-              How much can you save or invest each month? (Don't worry, this can be adjusted later)
-            </p>
-            <div>
-              <label className="block text-sm font-semibold text-[#031931] mb-2">Monthly amount ($)</label>
-              <input
-                type="number"
-                placeholder="$0"
-                value={formData.monthlySavings}
-                onChange={(e) => handleInputChange('monthlySavings', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-              />
-            </div>
-            {formData.hasSpouse && (
-              <div>
-                <label className="block text-sm font-semibold text-[#031931] mb-2">
-                  Spouse's monthly amount ($)
-                </label>
-                <input
-                  type="number"
-                  placeholder="$0"
-                  value={formData.spouseMonthlySavings}
-                  onChange={(e) => handleInputChange('spouseMonthlySavings', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                />
-              </div>
-            )}
-          </div>
-        );
-
-      case 11:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Housing</h2>
-            <p className="text-lg text-[#5a5a57]">Do you rent or own your home?</p>
-            <div className="flex gap-4">
-              <button
-                onClick={() => {
-                  handleInputChange('homeOwnership', 'own');
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  formData.homeOwnership === 'own'
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                Own
-              </button>
-              <button
-                onClick={() => {
-                  handleInputChange('homeOwnership', 'rent');
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  formData.homeOwnership === 'rent'
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                Rent
-              </button>
-            </div>
-            {formData.homeOwnership === 'own' && (
-              <div className="space-y-4 mt-6">
-                <div>
-                  <label className="block text-sm font-semibold text-[#031931] mb-2">Home value ($)</label>
-                  <input
-                    type="number"
-                    placeholder="$0"
-                    value={formData.homeValue}
-                    onChange={(e) => handleInputChange('homeValue', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-[#031931] mb-2">
-                    Remaining mortgage balance ($)
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="$0"
-                    value={formData.mortgageBalance}
-                    onChange={(e) => handleInputChange('mortgageBalance', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-[#031931] mb-2">
-                    Monthly mortgage payment ($)
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="$0"
-                    value={formData.mortgagePayment}
-                    onChange={(e) => handleInputChange('mortgagePayment', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                  />
-                </div>
-              </div>
-            )}
-            {formData.homeOwnership === 'rent' && (
-              <div>
-                <label className="block text-sm font-semibold text-[#031931] mb-2">Monthly rent ($)</label>
-                <input
-                  type="number"
-                  placeholder="$0"
-                  value={formData.rentPayment}
-                  onChange={(e) => handleInputChange('rentPayment', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                />
-              </div>
-            )}
-          </div>
-        );
-
-      case 12:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Other Debt</h2>
-            <p className="text-lg text-[#5a5a57]">Besides your mortgage, do you have any other debt?</p>
-            <div className="flex gap-4">
-              <button
-                onClick={() => {
-                  handleInputChange('hasOtherDebt', true);
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  formData.hasOtherDebt
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => {
-                  handleInputChange('hasOtherDebt', false);
-                  handleInputChange('debtTypes', []);
-                }}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  !formData.hasOtherDebt
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7]'
-                }`}
-              >
-                No
-              </button>
-            </div>
-            {formData.hasOtherDebt && (
-              <div className="space-y-3 mt-6">
-                <p className="font-semibold text-[#031931]">Which types of debt do you have?</p>
-                {debtOptions.map((debt) => (
-                  <label key={debt} className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={formData.debtTypes.includes(debt)}
-                      onChange={() => handleDebtToggle(debt)}
-                      className="w-5 h-5"
-                    />
-                    <span className="text-lg text-[#5a5a57]">{debt}</span>
-                  </label>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-
-      case 13:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Debt Balances</h2>
-            <p className="text-lg text-[#5a5a57]">Enter the balance for each type of debt</p>
-            <div className="space-y-4">
-              {formData.debtTypes.map((debt) => (
-                <div key={debt}>
-                  <label className="block text-sm font-semibold text-[#031931] mb-2">{debt} Balance</label>
-                  <input
-                    type="number"
-                    placeholder="$0"
-                    value={formData.debtBalances[debt] || ''}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        debtBalances: { ...prev.debtBalances, [debt]: e.target.value },
-                      }))
-                    }
-                    className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 14:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Life Expectancy</h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-[#031931] mb-2">Your gender</label>
-                <select
-                  value={formData.gender}
-                  onChange={(e) => handleInputChange('gender', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.smoker}
-                  onChange={(e) => handleInputChange('smoker', e.target.checked)}
-                  className="w-5 h-5"
-                />
-                <span className="text-lg text-[#5a5a57]">I smoke</span>
-              </label>
-            </div>
-            {formData.hasSpouse && (
-              <>
-                <div className="border-t-2 border-[#babbb7] pt-6 space-y-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-[#031931] mb-2">Spouse's gender</label>
-                    <select
-                      value={formData.spouseGender}
-                      onChange={(e) => handleInputChange('spouseGender', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-                    >
-                      <option value="">Select gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                  </div>
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={formData.spouseSmoker}
-                      onChange={(e) => handleInputChange('spouseSmoker', e.target.checked)}
-                      className="w-5 h-5"
-                    />
-                    <span className="text-lg text-[#5a5a57]">Spouse smokes</span>
-                  </label>
-                </div>
-              </>
-            )}
-          </div>
-        );
-
-      case 15:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#031931]">Contact Information</h2>
-            <div>
-              <label className="block text-sm font-semibold text-[#031931] mb-2">ZIP/Postal Code</label>
-              <input
-                type="text"
-                placeholder="A1A 1A1"
-                value={formData.zipCode}
-                onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-[#031931] mb-2">Email</label>
-              <input
-                type="email"
-                placeholder="your@email.com"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#babbb7] rounded-lg focus:border-[var(--primary)] outline-none"
-              />
-            </div>
-          </div>
-        );
-
-      default:
-        return null;
-    }
+  const handleSubmit = () => {
+    console.log('Form submitted:', formData);
+    alert('Thank you for completing the questionnaire! We will be in touch soon.');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f5f5f3] to-white py-16 px-4">
-      <div className="max-w-2xl mx-auto">
-        {/* Progress Bar */}
-        <div className="mb-12">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-sm font-semibold text-[#5a5a57]">
-              Step {visibleStep} of {totalSteps}
-            </span>
-            <span className="text-sm font-semibold text-[#5a5a57]">{Math.round(progressPercentage)}%</span>
-          </div>
-          <div className="w-full bg-[#babbb7] rounded-full h-2 overflow-hidden">
-            <div
-              className="bg-[var(--primary)] h-full transition-all duration-300"
-              style={{ width: `${progressPercentage}%` }}
-            ></div>
-          </div>
-        </div>
+    <main className="w-full bg-white">
+      <MobileNav />
+      <section className="min-h-screen pt-32 md:pt-24 pb-16 px-4">
+        <div className="max-w-2xl mx-auto">
+          {currentStep === 0 ? (
+            // Initial Page
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-[#031931] mb-6">
+                Please complete to start your quiz
+              </h1>
+              
+              <form className="space-y-6 mb-8">
+                <div>
+                  <label className="block text-sm font-semibold text-[#031931] mb-2">Name *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Your Name"
+                    className="w-full px-4 py-3 bg-transparent border-b border-[#515151] text-[#031931] placeholder-[#515151] focus:outline-none focus:border-[#e7a832] transition-colors duration-300"
+                  />
+                </div>
 
-        {/* Form Content */}
-        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-8">
-          {renderStep()}
-        </div>
+                <div>
+                  <label className="block text-sm font-semibold text-[#031931] mb-2">Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="your@email.com"
+                    className="w-full px-4 py-3 bg-transparent border-b border-[#515151] text-[#031931] placeholder-[#515151] focus:outline-none focus:border-[#e7a832] transition-colors duration-300"
+                  />
+                </div>
 
-        {/* Navigation Buttons */}
-        <div className="flex gap-4 justify-between">
-          <button
-            onClick={prevStep}
-            disabled={validCurrentStep === 1}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              validCurrentStep === 1
-                ? 'bg-[#babbb7] text-white cursor-not-allowed opacity-50'
-                : 'bg-[#f5f5f3] text-[#031931] border-2 border-[#babbb7] hover:bg-[#e8e8e8]'
-            }`}
-          >
-            Previous
-          </button>
-          {validCurrentStep < 15 ? (
-            <button
-              onClick={nextStep}
-              className="px-8 py-3 bg-[var(--primary)] text-white rounded-lg font-semibold hover:opacity-90 transition-all"
-            >
-              Next
-            </button>
+                <div>
+                  <label className="block text-sm font-semibold text-[#031931] mb-2">Phone (optional)</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="(123) 456-7890"
+                    className="w-full px-4 py-3 bg-transparent border-b border-[#515151] text-[#031931] placeholder-[#515151] focus:outline-none focus:border-[#e7a832] transition-colors duration-300"
+                  />
+                </div>
+
+                <div className="space-y-3 mt-6 pt-6 border-t border-[#babbb7]">
+                  <p className="text-sm text-[#5a5a57]">
+                    <strong>We protect and never sell your information</strong>
+                  </p>
+                  <p className="text-sm text-[#5a5a57]">
+                    By providing your information, you agree to receive communications from LEVPLAN. You may unsubscribe at any time.
+                  </p>
+                  
+                  <div className="flex items-start gap-3 mt-4">
+                    <input
+                      type="checkbox"
+                      name="agreedToTerms"
+                      checked={formData.agreedToTerms}
+                      onChange={handleInputChange}
+                      id="agreedToTerms"
+                      className="mt-1"
+                    />
+                    <label htmlFor="agreedToTerms" className="text-sm text-[#5a5a57]">
+                      I agree to receive communications from LEVPLAN and understand I can unsubscribe at any time.
+                    </label>
+                  </div>
+                </div>
+              </form>
+
+              <button
+                onClick={handleNext}
+                className="w-full px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
+              >
+                Start Quiz
+              </button>
+            </div>
           ) : (
-            <button className="px-8 py-3 bg-[var(--primary)] text-white rounded-lg font-semibold hover:opacity-90 transition-all">
-              Submit
-            </button>
+            // Questions
+            <div>
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-[#031931] mb-2">
+                  Question {currentStep} of 15
+                </h2>
+                <div className="w-full bg-[#babbb7] h-1 rounded-full">
+                  <div
+                    className="bg-[#e7a832] h-1 rounded-full transition-all duration-300"
+                    style={{ width: `${(currentStep / 15) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              <form className="space-y-6 mb-8">
+                {currentStep === 1 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      What does the "Ideal Retirement" actually look like for you?
+                    </h3>
+                    <textarea
+                      name="idealRetirement"
+                      value={formData.idealRetirement}
+                      onChange={handleInputChange}
+                      placeholder="Describe your ideal retirement..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 2 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      How much monthly income would make you feel secure and free once the paycheques stop?
+                    </h3>
+                    <div className="space-y-3">
+                      {['$2,000-$5,000', '$5,000-$7,500', '$7,500-$10,000', '$10,000+'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="monthlyIncome"
+                            value={option}
+                            checked={formData.monthlyIncome === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 3 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      What would need to happen financially for you to feel comfortable retiring earlier than you expected?
+                    </h3>
+                    <div className="space-y-3">
+                      {['Save more', 'Pay off mortgage', 'Put kids through school'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="checkbox"
+                            name="retirementFactor"
+                            value={option}
+                            checked={formData.retirementFactor.includes(option)}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 4 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      Which expenses in your current lifestyle would you want to keep, reduce, or eliminate after retirement?
+                    </h3>
+                    <textarea
+                      name="lifestyleExpenses"
+                      value={formData.lifestyleExpenses}
+                      onChange={handleInputChange}
+                      placeholder="Describe your lifestyle expenses..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 5 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      How confident are you that your savings and investments are working hard enough to support the life you want?
+                    </h3>
+                    <textarea
+                      name="investmentConfidence"
+                      value={formData.investmentConfidence}
+                      onChange={handleInputChange}
+                      placeholder="Share your thoughts..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 6 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      If markets dropped 20% right before you retired, what would your backup plan be?
+                    </h3>
+                    <div className="space-y-3">
+                      {['Retire later', 'Invest more', 'Work longer', 'No difference', 'Not sure'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="marketDropPlan"
+                            value={option}
+                            checked={formData.marketDropPlan === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 7 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      What are your biggest concerns or fears when you think about retirement?
+                    </h3>
+                    <textarea
+                      name="retirementConcerns"
+                      value={formData.retirementConcerns}
+                      onChange={handleInputChange}
+                      placeholder="Share your concerns..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 8 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      What kind of legacy—or impact—do you want your money to have after you're gone?
+                    </h3>
+                    <textarea
+                      name="moneyLegacy"
+                      value={formData.moneyLegacy}
+                      onChange={handleInputChange}
+                      placeholder="Describe your legacy..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 9 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      Who are the people you trust to help you make big financial decisions over the next decade?
+                    </h3>
+                    <textarea
+                      name="trustAdvisors"
+                      value={formData.trustAdvisors}
+                      onChange={handleInputChange}
+                      placeholder="List the people you trust..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 10 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      When was the last time you reviewed your plan and updated it to reflect the life you're actually living now?
+                    </h3>
+                    <textarea
+                      name="lastReview"
+                      value={formData.lastReview}
+                      onChange={handleInputChange}
+                      placeholder="When did you last review your plan..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 11 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      Do you automatically save every month?
+                    </h3>
+                    <div className="space-y-3">
+                      {['Yes', 'No', 'Sometimes'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="automaticSavings"
+                            value={option}
+                            checked={formData.automaticSavings === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 12 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      Have you worked with a financial advisor before?
+                    </h3>
+                    <div className="space-y-3">
+                      {['Yes', 'No', 'Currently working with one'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="financialAdvisorExperience"
+                            value={option}
+                            checked={formData.financialAdvisorExperience === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 13 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      When you think about your finances, who else is involved in the decision-making process?
+                    </h3>
+                    <textarea
+                      name="decisionMakers"
+                      value={formData.decisionMakers}
+                      onChange={handleInputChange}
+                      placeholder="Describe who is involved..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 14 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      Are you planning any big projects or philanthropy in the future?
+                    </h3>
+                    <textarea
+                      name="futureProjects"
+                      value={formData.futureProjects}
+                      onChange={handleInputChange}
+                      placeholder="Tell us about your plans..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+
+                {currentStep === 15 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#031931] mb-4">
+                      On a scale of 1-10, how would you rate your financial situation? What would it take to get you to a 10?
+                    </h3>
+                    <textarea
+                      name="financialRating"
+                      value={formData.financialRating}
+                      onChange={handleInputChange}
+                      placeholder="Share your rating and thoughts..."
+                      rows={4}
+                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+                    />
+                  </div>
+                )}
+              </form>
+
+              <div className="flex gap-4 justify-between">
+                <button
+                  onClick={handlePrevious}
+                  className="px-6 py-3 border-2 border-[#e7a832] text-[#e7a832] font-bold rounded-lg hover:bg-[#f0b94a] hover:text-white transition-all duration-200"
+                >
+                  Previous
+                </button>
+                
+                {currentStep < 15 ? (
+                  <button
+                    onClick={handleNext}
+                    className="px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    className="px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
+                  >
+                    Get your results
+                  </button>
+                )}
+              </div>
+            </div>
           )}
         </div>
-      </div>
-    </div>
+      </section>
+      <Footer />
+    </main>
   );
 };
 
