@@ -70,17 +70,34 @@ export default function YouTubeGuidance() {
   return (
     <main className="w-full bg-white">
       <MobileNav />
-      <section className="min-h-screen pt-32 md:pt-24 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
+      <section 
+        className="relative min-h-[400px] md:min-h-[500px] pt-32 md:pt-24 pb-16 px-4 bg-cover"
+        style={{
+          backgroundImage: 'url(/images/bg.jpg)',
+          backgroundPosition: 'center 100%',
+          backgroundSize: 'cover',
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#002349]/70"></div>
+        
+        {/* Content */}
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-[#031931] mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Free Financial Guidance Videos
             </h1>
-            <p className="text-lg text-[#5a5a57] max-w-3xl">
+            <hr className="w-24 border-t-2 border-[#e7a832] mb-6" />
+
+            <p className="text-lg text-white max-w-3xl">
               Subscribe to our YouTube channel for free financial planning tips, strategies, and tutorials from certified experts. No signup required!
             </p>
           </div>
+        </div>
+      </section>
 
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
           <div className="space-y-6">
             {videos.map((video, index) => (
               <div
