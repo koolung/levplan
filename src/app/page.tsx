@@ -20,9 +20,9 @@ export default function Home() {
       <WhyLevplanSection />
       <PartnersSection />
       <TestimonialsSection />
-      <RoadmapSection />
+      {/* <RoadmapSection /> */}
       <CalendlySection />
-      <FAQSection />
+      {/* <FAQSection /> */}
       <StartNowSection />
       <ContactSection />
       <Footer />

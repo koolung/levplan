@@ -82,26 +82,20 @@ const TestimonialsSection = () => {
           </button>
 
           {/* Testimonial Card */}
-          <div className="flex-1 rounded-lg bg-[#f5f5f3] p-8 md:p-12">
+          <div className="flex-1 bg-[#002349] p-8 md:p-12">
             <div className="transition-all duration-500">
-              {/* Rating */}
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: testimonials[activeIndex].rating }).map((_, i) => (
-                  <span key={i} className="text-2xl">⭐</span>
-                ))}
-              </div>
 
               {/* Quote */}
-              <p className="text-lg md:text-xl text-[#031931] font-semibold mb-6 italic">
+              <p className="text-lg md:text-xl text-[#ffffff] font-semibold mb-6 italic">
                 "{testimonials[activeIndex].content}"
               </p>
 
               {/* Author */}
               <div>
-                <p className="font-bold text-[#031931]">
+                <p className="font-bold text-[#e7a832]">
                   {testimonials[activeIndex].name}
                 </p>
-                <p className="text-[#5a5a57]">
+                <p className="text-[#babbb7]">
                   {testimonials[activeIndex].role}
                 </p>
               </div>

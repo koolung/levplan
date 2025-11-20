@@ -1,5 +1,6 @@
 import MobileNav from '@/components/MobileNav';
 import Footer from '@/components/Footer';
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Free YouTube Guidance - LevPlan',
@@ -12,49 +13,57 @@ export default function YouTubeGuidance() {
       title: 'How to Build a Diversified Investment Portfolio',
       duration: '12:45',
       category: 'Investing',
-      views: '5.2K',
+      uploadDate: 'December 2024',
+      uploadedBy: 'Robert Levesque',
     },
     {
       title: 'Retirement Planning 101: The Basics',
       duration: '15:30',
       category: 'Retirement',
-      views: '8.9K',
+      uploadDate: 'November 2024',
+      uploadedBy: 'Robert Levesque',
     },
     {
       title: 'Debt Elimination Strategies That Work',
       duration: '18:15',
       category: 'Debt Management',
-      views: '12.4K',
+      uploadDate: 'October 2024',
+      uploadedBy: 'Robert Levesque',
     },
     {
       title: 'RRSP vs TFSA: Complete Comparison',
       duration: '10:20',
       category: 'Tax Planning',
-      views: '3.7K',
+      uploadDate: 'September 2024',
+      uploadedBy: 'Robert Levesque',
     },
     {
       title: 'Life Insurance: Do You Need It?',
       duration: '14:50',
       category: 'Insurance',
-      views: '6.1K',
+      uploadDate: 'August 2024',
+      uploadedBy: 'Robert Levesque',
     },
     {
       title: 'Emergency Fund: How Much Do You Need?',
       duration: '9:35',
       category: 'Financial Basics',
-      views: '4.3K',
+      uploadDate: 'July 2024',
+      uploadedBy: 'Robert Levesque',
     },
     {
       title: 'Tax Optimization Strategies for 2024',
       duration: '16:40',
       category: 'Tax Planning',
-      views: '7.8K',
+      uploadDate: 'June 2024',
+      uploadedBy: 'Robert Levesque',
     },
     {
       title: 'Estate Planning 101',
       duration: '13:20',
       category: 'Estate Planning',
-      views: '2.9K',
+      uploadDate: 'May 2024',
+      uploadedBy: 'Robert Levesque',
     },
   ];
 
@@ -72,57 +81,43 @@ export default function YouTubeGuidance() {
             </p>
           </div>
 
-          <div className="mb-12">
-            <button className="px-6 py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-colors duration-300 flex items-center gap-2">
-              ▶ Subscribe on YouTube
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <div className="space-y-6">
             {videos.map((video, index) => (
               <div
                 key={index}
-                className="bg-[#f5f5f3] rounded-lg overflow-hidden border-2 border-[#babbb7] hover:border-[var(--foreground)] transition-all duration-300 cursor-pointer hover:shadow-lg"
+                className="flex flex-col md:flex-row gap-0 md:gap-6 bg-[#f6f6f6] shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden"
               >
                 {/* Video Thumbnail */}
-                <div className="bg-gray-400 h-32 flex items-center justify-center text-4xl text-white">
-                  ▶
+                <div className="relative bg-gray-400 w-full md:w-48 md:flex-shrink-0 h-32 md:h-40 flex items-center justify-center text-4xl text-white overflow-hidden">
+                  <Image
+                    src="/images/thumbnail.jpg"
+                    alt={video.title}
+                    fill
+                    className="object-cover"
+                  />
+                  <span className="relative bg-[transparent] z-10">▶</span>
                 </div>
 
-                {/* Video Info */}
-                <div className="p-4">
-                  <h3 className="font-bold text-[#031931] mb-2 text-sm line-clamp-2">
-                    {video.title}
-                  </h3>
-                  <div className="space-y-2 text-xs text-[#5a5a57]">
-                    <div className="flex justify-between">
-                      <span>{video.duration}</span>
-                      <span className="text-[var(--primary)] font-semibold">{video.views}</span>
-                    </div>
-                    <div className="inline-block bg-white px-2 py-1 rounded border border-[#babbb7]">
+                {/* Article Content */}
+                <article className="p-6 md:p-8 flex-1 flex flex-col justify-center">
+                  <div className="flex flex-col gap-4 mb-3">
+                    <h2 className="text-2xl font-medium text-[#031931]">
+                      {video.title}
+                    </h2>
+                    <span className="text-sm font-semibold text-white bg-[#002349] px-3 py-1 whitespace-nowrap w-fit">
                       {video.category}
-                    </div>
+                    </span>
                   </div>
-                </div>
+                  <div className="flex gap-4 text-sm text-[#5a5a57]">
+                    <span>{video.duration}</span>
+                    <span>•</span>
+                    <span>{video.uploadDate}</span>
+                    <span>•</span>
+                    <span>by {video.uploadedBy}</span>
+                  </div>
+                </article>
               </div>
             ))}
-          </div>
-
-          <div className="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white p-8 md:p-12 rounded-lg">
-            <h2 className="text-3xl font-bold mb-4">Popular Playlists</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { name: 'Investing Basics', count: '12 videos' },
-                { name: 'Retirement Planning', count: '8 videos' },
-                { name: 'Debt Elimination', count: '6 videos' },
-                { name: 'Tax Strategies', count: '10 videos' },
-              ].map((playlist, i) => (
-                <div key={i} className="flex items-center justify-between cursor-pointer hover:opacity-80 transition-opacity">
-                  <span className="text-lg font-semibold">{playlist.name}</span>
-                  <span className="text-sm opacity-75">{playlist.count}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

@@ -70,13 +70,13 @@ export default function Blog() {
             {articles.map((article, index) => (
               <article
                 key={index}
-                className="p-6 md:p-8 bg-[#f6f6f6] rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                className="p-6 md:p-8 bg-[#f6f6f6] shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer"
               >
                 <div className="flex flex-col gap-4 mb-3">
                   <h2 className="text-2xl font-bold text-[#031931]">
                     {article.title}
                   </h2>
-                  <span className="text-sm font-semibold text-white bg-[var(--primary)] px-3 py-1 rounded-full whitespace-nowrap w-fit">
+                  <span className="text-sm font-semibold text-white bg-[#002349] px-3 py-1 whitespace-nowrap w-fit">
                     {article.category}
                   </span>
                 </div>
@@ -93,7 +93,7 @@ export default function Blog() {
           </div>
 
           <div className="mt-12 text-center">
-            <button className="px-8 py-3 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white font-bold rounded-lg hover:shadow-lg transition-shadow duration-300">
+            <button className="px-8 py-3 bg-[#002349] text-white uppercase font-light hover:shadow-lg transition-shadow duration-300">
               Load More Articles
             </button>
           </div>

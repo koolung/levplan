@@ -1,14 +1,33 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'FreightDisplayProBook';
+  src: url('/fonts/FreightDisplayProBook.woff2') format('woff2'),
+       url('/fonts/FreightDisplayProBook.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #e7a832;
-  --primary: #031931;
+  --primary: #002349;
   --primary-light: #5a5a57;
   --secondary: #f5f5f3;
   --accent: #babbb7;
   --text-light: #8b8c89;
   --font-geist-sans: system-ui, -apple-system, sans-serif;
+  --font-freight-display: 'FreightDisplayProBook', serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-freight-display);
+}
+
+/* Focus underline color */
+:focus-visible {
+  outline: none;
+  border-bottom: 2px solid #e7a832;
 }
 
 html {
@@ -100,7 +119,6 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 10px 10px;
   transition: all 0.4s ease-out;
 }
 

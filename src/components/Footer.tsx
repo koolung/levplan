@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,15 +11,12 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Image
-              src="/logo_white.png"
+              src="/images/logo_white.svg"
               alt="LevPlan"
-              width={150}
+              width={250}
               height={60}
-              className="mb-4"
+              className="mb-4 -ml-10.5"
             />
-            <p className="text-[#babbb7]">
-              Building beautiful and functional web experiences.
-            </p>
           </div>
 
           {/* Quick Links */}
@@ -47,7 +45,7 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Follow Us</h4>
             <div className="flex gap-4">
-              {['Twitter', 'LinkedIn', 'GitHub'].map((social) => (
+              {['Facebook', 'LinkedIn'].map((social) => (
                 <a
                   key={social}
                   href="#"
@@ -64,10 +62,22 @@ const Footer = () => {
         <div className="border-t border-[#5a5a57] pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-[#babbb7] text-sm">
             <p>&copy; {currentYear} LevPlan. All rights reserved.</p>
+
             <div className="flex gap-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-white transition-colors duration-200">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors duration-200">Terms of Service</a>
             </div>
+          </div>
+
+          {/* Built By Credit */}
+          <div className="text-center mt-8 text-[#babbb7] text-sm">
+            <p>
+              Built by{' '}
+              <Link href="https://www.bedfordwebservices.com" target="_blank" rel="noopener noreferrer" className="text-[#e7a832] hover:text-white transition-colors duration-200">
+                BWS
+              </Link>
+              {' '}with passion
+            </p>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ const PartnersSection = () => {
   return (
     <section
       id="partners"
-      className="py-12 md:py-16 px-4 bg-[lab(92_-0.16_-2.27_/_0.64)]"
+      className="py-12 md:py-16 px-4 bg-[#002349]"
     >
       <style>{`
         @keyframes scrolling {
@@ -51,10 +51,10 @@ const PartnersSection = () => {
       `}</style>
 
       <div className="grid place-items-center w-full gap-6">
-        <h1 className="text-3xl md:text-4xl font-bold text-[#031931]">
+        <h1 className="text-4xl md:text-4xl font-medium text-[white]">
           Our Partners
         </h1>
-        <div className="flex justify-center items-center w-11/12 md:w-4/5 overflow-hidden bg-white rounded-2xl shadow-lg backdrop-blur-lg border border-white border-opacity-40 md:py-8">
+        <div className="flex justify-center items-center w-11/12 md:w-4/5 overflow-hidden bg-white rounded-lg shadow-lg backdrop-blur-lg border border-white border-opacity-40 md:py-8">
           <div className="slider-items">
             {[...partners, ...partners].map((partner, index) => (
               <Image

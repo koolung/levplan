@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Reason {
   title: string;
@@ -89,7 +90,7 @@ const WhyLevplanSection = () => {
     const startAutoplay = () => {
       autoplayRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % reasons.length);
-      }, 2500);
+      }, 4000);
     };
 
     startAutoplay();
@@ -104,7 +105,7 @@ const WhyLevplanSection = () => {
     if (autoplayRef.current) clearInterval(autoplayRef.current);
     autoplayRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % reasons.length);
-    }, 2500);
+    }, 4000);
   };
 
   const goToPrev = () => {
@@ -112,7 +113,7 @@ const WhyLevplanSection = () => {
     if (autoplayRef.current) clearInterval(autoplayRef.current);
     autoplayRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % reasons.length);
-    }, 2500);
+    }, 4000);
   };
 
   const goToNext = () => {
@@ -120,7 +121,7 @@ const WhyLevplanSection = () => {
     if (autoplayRef.current) clearInterval(autoplayRef.current);
     autoplayRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % reasons.length);
-    }, 2500);
+    }, 4000);
   };
 
   return (
@@ -130,7 +131,7 @@ const WhyLevplanSection = () => {
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#031931] mb-4">
+          <h2 className="text-4xl md:text-5xl text-[#031931] font-medium mb-4">
             Why Choose LevPlan?
           </h2>
           <p className="text-[#5a5a57] text-lg max-w-2xl mx-auto">
@@ -161,33 +162,43 @@ const WhyLevplanSection = () => {
                   key={index}
                   className={`absolute w-72 md:w-80 transition-all duration-500 ease-out ${position}`}
                 >
-                  <div className="p-0 bg-white rounded-lg shadow-lg hover:shadow-xl text-center flex flex-col h-full overflow-hidden transition-shadow duration-300">
-                    <div className="w-full h-[30%] relative bg-gray-200">
-                      <Image
-                        src={reason.image}
-                        alt={reason.title}
-                        width={320}
-                        height={96}
-                        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                        priority={index < 2}
-                      />
-                    </div>
-                    <div className="p-8 flex flex-col h-[70%]">
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-2xl font-bold text-[#031931]">
-                          {reason.title}
-                        </h3>
-                        <button
-                          onClick={() => setSelectedModal(index)}
-                          className="flex-shrink-0 w-6 h-6 rounded-full bg-transparent border-2 border-[var(--primary)] text-[var(--primary)] flex items-center justify-center text-sm font-bold hover:scale-110 transition-transform duration-200"
-                          aria-label="Learn more"
-                        >
-                          ?
-                        </button>
+                  <div className="rounded-[3px] shadow-lg hover:shadow-xl overflow-hidden transition-shadow duration-300 relative min-h-[400px] md:min-h-[450px]">
+                    {/* Background Image */}
+                    <Image
+                      src={reason.image}
+                      alt={reason.title}
+                      fill
+                      className="object-cover -z-10"
+                      priority={index < 2}
+                    />
+                    
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0" style={{ backgroundColor: 'rgba(7, 22, 45, 0.6)' }}/>
+                    
+                    {/* Content */}
+                    <div className="relative z-10 h-full flex flex-col p-8 justify-between gap-15">
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-2xl font-medium text-white uppercase flex-1 pr-2">
+                            {reason.title}
+                          </h3>
+                          <button
+                            onClick={() => setSelectedModal(index)}
+                            className="flex-shrink-0 w-6 h-6 rounded-full bg-transparent border-2 border-white text-white flex items-center justify-center text-sm font-bold hover:scale-110 transition-transform duration-200"
+                            aria-label="Learn more"
+                          >
+                            ?
+                          </button>
+                        </div>
+                        <p className="text-white leading-relaxed text-sm md:text-base">
+                          {reason.description}
+                        </p>
                       </div>
-                      <p className="text-[#5a5a57] leading-relaxed text-sm md:text-base flex-1">
-                        {reason.description}
-                      </p>
+                      <Link href="/questionnaire">
+                        <button className="w-full px-6 py-2 bg-transparent border-2 border-[#f0b94a] text-[#f0b94a] font-bold uppercase text-sm hover:bg-[#f0b94a] hover:text-[#031931] transition-colors duration-200">
+                          Take a Quiz
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -218,15 +229,15 @@ const WhyLevplanSection = () => {
         </div>
 
         {/* Indicator Dots */}
-        <div className="flex gap-2 justify-center mt-8">
+        <div className="flex gap-2 justify-center md:mt-8">
           {reasons.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-3 rounded-full transition-all duration-300 cursor-pointer ${
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                 index === currentIndex
                   ? 'bg-[var(--primary)] w-8'
-                  : 'bg-[#babbb7] w-3 hover:bg-[#5a5a57]'
+                  : 'bg-[#babbb7] w-2 hover:bg-[#5a5a57]'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
