@@ -14,7 +14,7 @@ export default function BackgroundVideo() {
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.preload = 'auto';
+    video.preload = 'none';
 
     // Function to attempt play
     const attemptPlay = () => {
