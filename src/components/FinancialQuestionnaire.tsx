@@ -494,7 +494,6 @@ const FinancialQuestionnaire = () => {
           )}
         </div>
       </section>
-      <Footer />
     </main>
   );
 };
