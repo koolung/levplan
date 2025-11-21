@@ -66,7 +66,7 @@ const ContactSection = () => {
 
 
         <div
-          className={`grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 transition-all duration-700 ${
+          className={`grid grid-cols-1 md:grid-cols-1 gap-8 mb-12 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -76,7 +76,7 @@ const ContactSection = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className="text-center p-6 bg-[transparent] hover:shadow-lg transition-shadow duration-300"
+              className="text-center md:text-center p-6 bg-[transparent] hover:shadow-lg transition-shadow duration-300"
             >
               <h3 className="font-bold text-[#e7a832] mb-2">{item.title}</h3>
               <a href={`mailto:${item.value}`} className="text-[#babbb7]">{item.value}</a>

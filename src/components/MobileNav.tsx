@@ -199,8 +199,8 @@ const MobileNav = () => {
               </Link>
             ))}
             <Link href="/questionnaire">
-              <button className="px-6 py-2 bg-gradient-to-r from-[#e7a832] to-[#f0b94a] text-white font-semibold rounded-lg hover:shadow-lg transition-shadow duration-200">
-                Get Started
+              <button className="px-6 py-2 bg-transparent uppercase text-[#e7a832] font-medium border border-[#e7a832] rounded-[2px] hover:shadow-lg transition-shadow duration-200">
+                Take a free quiz
               </button>
             </Link>
           </div>
