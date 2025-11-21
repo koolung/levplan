@@ -60,9 +60,10 @@ const TestimonialsSection = () => {
     >
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#031931] mb-4">
+          <h2 className="text-4xl md:text-5xl font-medium text-[#031931] mb-4">
             What Our Clients Say
           </h2>
+          <hr className="w-24 border-t-4 border-[#e7a832] mx-auto mb-6" />
           <p className="text-[#5a5a57] text-lg">
             Real stories from real people who transformed their financial lives with LevPlan.
           </p>

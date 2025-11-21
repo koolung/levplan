@@ -134,6 +134,8 @@ const WhyLevplanSection = () => {
           <h2 className="text-4xl md:text-5xl text-[#031931] font-medium mb-4">
             Why Choose LevPlan?
           </h2>
+                  <hr className="w-24 border-t-4 border-[#e7a832] mx-auto mb-6" />
+
           <p className="text-[#5a5a57] text-lg max-w-2xl mx-auto">
             Discover what sets us apart in personalized financial planning and wealth management.
           </p>

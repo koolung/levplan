@@ -25,9 +25,11 @@ const CalendlySection = () => {
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#031931] mb-4">
+          <h2 className="text-4xl md:text-5xl font-medium text-[#031931] mb-4">
             Schedule Your Consultation
           </h2>
+                  <hr className="w-24 border-t-4 border-[#e7a832] mx-auto mb-6" />
+
           <p className="text-[#5a5a57] text-lg max-w-2xl mx-auto">
             Book a time that works best for you. Our financial advisors are ready to help.
           </p>

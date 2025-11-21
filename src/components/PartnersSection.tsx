@@ -54,6 +54,8 @@ const PartnersSection = () => {
         <h1 className="text-4xl md:text-4xl font-medium text-[white]">
           Our Partners
         </h1>
+                <hr className="w-24 border-t-4 border-[#e7a832] mx-auto mb-6" />
+
         <div className="flex justify-center items-center w-11/12 md:w-4/5 overflow-hidden bg-white rounded-lg shadow-lg backdrop-blur-lg border border-white border-opacity-40 md:py-8">
           <div className="slider-items">
             {[...partners, ...partners].map((partner, index) => (
