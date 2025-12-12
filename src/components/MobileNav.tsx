@@ -47,7 +47,7 @@ const MobileNav = () => {
     { label: 'Who We Are', href: '/who-we-are' },
     { label: 'Blog', href: '/our-blog' },
     { label: 'Free YouTube', href: '/free-youtube-guidance' },
-    { label: 'Free Plan', href: '/questionnaire' },
+    { label: 'Pricing', href: '/pricing' },
   ];
 
   return (
@@ -151,7 +151,7 @@ const MobileNav = () => {
             ))}
             <Link href="/questionnaire" onClick={closeMenu} className="w-full">
               <button className="w-full uppercase py-3 bg-transparent border-2 border-[#f0b94a] text-[#f0b94a] font-semibold hover:shadow-lg transition-shadow duration-200">
-                Take a Free Quiz
+                Take the Assessment
               </button>
             </Link>
           </div>
@@ -200,7 +200,7 @@ const MobileNav = () => {
             ))}
             <Link href="/questionnaire">
               <button className="px-6 py-2 bg-transparent uppercase text-[#e7a832] font-medium border border-[#e7a832] rounded-[2px] hover:shadow-lg transition-shadow duration-200">
-                Take a free quiz
+                Take the Assessment
               </button>
             </Link>
           </div>

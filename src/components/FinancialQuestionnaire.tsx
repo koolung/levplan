@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import MobileNav from './MobileNav';
 import Footer from './Footer';
+import ResultsPage from './ResultsPage';
 
 interface FormData {
   // Initial Page
@@ -30,7 +31,7 @@ interface FormData {
 }
 
 const FinancialQuestionnaire = () => {
-  const [currentStep, setCurrentStep] = useState(0); // 0 = initial page, 1-15 = questions
+  const [currentStep, setCurrentStep] = useState(0); // 0 = initial page, 1-15 = questions, 16 = results
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -52,6 +53,7 @@ const FinancialQuestionnaire = () => {
     futureProjects: '',
     financialRating: '',
   });
+  const [score, setScore] = useState(0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -95,16 +97,41 @@ const FinancialQuestionnaire = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    alert('Thank you for completing the questionnaire! We will be in touch soon.');
+    // Calculate score based on:
+    // Q2 (monthlyIncome): $2,000-$5,000=1pt, $5,000-$7,500=2pts, $7,500-$10,000=3pts, $10,000+=4pts
+    // Q6 (marketDropPlan): Retire later=0pts, invest more=2pts, work longer=0pts, no difference=1pts, not sure=0pts
+    // Q11 (automaticSavings): Yes=1pt, No=0pts
+    // Max score = 7
+
+    let calculatedScore = 0;
+
+    // Q2 scoring
+    if (formData.monthlyIncome === '$2,000-$5,000') calculatedScore += 1;
+    else if (formData.monthlyIncome === '$5,000-$7,500') calculatedScore += 2;
+    else if (formData.monthlyIncome === '$7,500-$10,000') calculatedScore += 3;
+    else if (formData.monthlyIncome === '$10,000+') calculatedScore += 4;
+
+    // Q6 scoring
+    if (formData.marketDropPlan === 'Invest more') calculatedScore += 2;
+    else if (formData.marketDropPlan === 'No difference') calculatedScore += 1;
+
+    // Q11 scoring
+    if (formData.automaticSavings === 'Yes') calculatedScore += 1;
+
+    setScore(calculatedScore);
+    setCurrentStep(16); // Navigate to results
   };
 
   return (
-    <main className="w-full bg-white">
-      <MobileNav />
-      <section className="min-h-screen pt-32 md:pt-24 pb-16 px-4">
-        <div className="max-w-2xl mx-auto">
-          {currentStep === 0 ? (
+    <>
+      {currentStep === 16 ? (
+        <ResultsPage score={score} maxScore={7} />
+      ) : (
+        <main className="w-full bg-white">
+          <MobileNav />
+          <section className="min-h-screen pt-32 md:pt-24 pb-16 px-4">
+            <div className="max-w-2xl mx-auto">
+              {currentStep === 0 ? (
             // Initial Page
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-[#031931] mb-6">
@@ -492,9 +519,13 @@ const FinancialQuestionnaire = () => {
               </div>
             </div>
           )}
-        </div>
-      </section>
-    </main>
+            </div>
+          </section>
+
+          <Footer />
+        </main>
+      )}
+    </>
   );
 };
 
