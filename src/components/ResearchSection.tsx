@@ -44,6 +44,91 @@ const ResearchSection = () => {
       className="py-16 md:py-24 px-4 bg-gradient-to-b from-white to-[#f9f8f6]"
     >
       <div className="max-w-6xl mx-auto">
+        {/* Bottom CTA - Enhanced */}
+        <div className="mb-16 md:mb-20">
+          {/* Header Section */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#031931] mb-4">
+              Get Your Personalized Assessment
+            </h2>
+            <p className="text-[#5a5a57] text-base leading-relaxed max-w-2xl mx-auto">
+              Answer <span className="font-bold text-[#031931]">15 key questions</span> and you will gain immediate insights based on the 
+following <span className="font-bold text-[#031931]">3</span> key areas: 
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Left: Info Section */}
+            <div>
+              {/* Features List */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#e7a832] bg-opacity-20">
+                      <span className="text-[#313131] font-bold">1</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[#031931]">Saving Habits</p>
+                    <p className="text-sm text-[#5a5a57]">Build a stronger financial foundation.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#e7a832] bg-opacity-20">
+                      <span className="text-[#313131] font-bold">2</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[#031931]">Cash Flow</p>
+                    <p className="text-sm text-[#5a5a57]">Optimize your monthly budget and improve cash flow.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#e7a832] bg-opacity-20">
+                      <span className="text-[#313131] font-bold">3</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[#031931]">Retirement Readiness</p>
+                    <p className="text-sm text-[#5a5a57]">Evaluate your current retirement plan and see how on-track you are.</p>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-sm text-[#5a5a57] italic">
+                This assessment has been carefully developed to quickly and easily produce valuable insights based on your answers.
+              </p>
+            </div>
+
+            {/* Right: CTA Button Section */}
+            <div className="flex flex-col items-center justify-center bg-gradient-to-br from-[#f9f8f6] to-[#f5f5f3] p-8 md:p-12 border border-[#e7a832] border-opacity-30">
+              <div className="text-center mb-8">
+                <div className="text-4xl md:text-5xl font-bold text-[#e7a832] mb-3">
+                  3<span className="text-lg">min</span>
+                </div>
+                <p className="text-sm text-[#5a5a57]">
+                  Answer our simple questions <br></br>to jump start your financial clarity journey!
+                </p>
+              </div>
+
+              <a
+                href="/questionnaire"
+                className="w-full px-8 py-4 bg-gradient-to-r from-[#293745] to-[#082849] text-[#ffffff] font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center mb-4"
+              >
+                Take the Assessment
+              </a>
+
+              <p className="text-xs text-[#5a5a57] text-center">
+                Answer 15 questions • Get instant insights • No phone number required
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-16 md:mb-20">
           <h2 className="text-3xl md:text-5xl font-bold text-[#031931] mb-4">
@@ -139,92 +224,6 @@ const ResearchSection = () => {
             <div className="pt-6 border-t border-gray-200">
               <p className="text-xs text-[#5a5a57] font-semibold">
                 Industry Certified & Regulated
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom CTA - Enhanced */}
-        <div className="mt-16 md:mt-20 pt-12 md:pt-16 border-t border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            {/* Left: Info Section */}
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-[#031931] mb-6">
-                Get Your Personalized Assessment
-              </h3>
-              <p className="text-[#5a5a57] text-base leading-relaxed mb-6">
-                Answer <span className="font-bold text-[#031931]">15 key questions</span> and you will gain immediate insights based on the 
-following <span className="font-bold text-[#031931]">3</span> key areas: 
-              </p>
-              
-              {/* Features List */}
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#e7a832] bg-opacity-20">
-                      <span className="text-[#313131] font-bold">1</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-[#031931]">Saving Habits</p>
-                    <p className="text-sm text-[#5a5a57]">Build a stronger financial foundation.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#e7a832] bg-opacity-20">
-                      <span className="text-[#313131] font-bold">2</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-[#031931]">Cash Flow</p>
-                    <p className="text-sm text-[#5a5a57]">Optimize your monthly budget and improve cash flow.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#e7a832] bg-opacity-20">
-                      <span className="text-[#313131] font-bold">3</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-[#031931]">Retirement Readiness</p>
-                    <p className="text-sm text-[#5a5a57]">Evaluate your current retirement plan and see how on-track you are.</p>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-sm text-[#5a5a57] italic">
-                This assessment has been carefully developed to quickly and easily produce valuable insights based on your answers.
-              </p>
-            </div>
-
-            {/* Right: CTA Button Section */}
-            <div className="flex flex-col items-center justify-center bg-gradient-to-br from-[#f9f8f6] to-[#f5f5f3] p-8 md:p-12 border border-[#e7a832] border-opacity-30">
-              <div className="text-center mb-8">
-                <div className="text-4xl md:text-5xl font-bold text-[#e7a832] mb-3">
-                  3<span className="text-lg">min</span>
-                </div>
-                <p className="text-[#5a5a57] font-semibold mb-2">
-                  Assessment Time
-                </p>
-                <p className="text-sm text-[#5a5a57]">
-                  Just answer our simple questions <br></br>to jump start 
-your financial clarity journey!
-                </p>
-              </div>
-
-              <a
-                href="/questionnaire"
-                className="w-full px-8 py-4 bg-gradient-to-r from-[#293745] to-[#082849] text-[#ffffff] font-bold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center mb-4"
-              >
-                Take the Assessment
-              </a>
-
-              <p className="text-xs text-[#5a5a57] text-center">
-                Answer 15 questions • Get instant insights • No email required
               </p>
             </div>
           </div>

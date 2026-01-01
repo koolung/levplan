@@ -7,32 +7,29 @@ interface SpeedometerProps {
 }
 
 const Speedometer = ({ currentLevel }: SpeedometerProps) => {
-  const [displayLevel, setDisplayLevel] = useState(0);
-  const [needleRotation, setNeedleRotation] = useState(-110);
+  const [needleRotation, setNeedleRotation] = useState(-120);
 
   useEffect(() => {
-    // Animate from 0 to currentLevel
-    let current = 0;
-    const interval = setInterval(() => {
-      current += 1;
-      setDisplayLevel(current);
-      // Each level = 44 degrees (220 degrees / 5 levels)
-      // Starting at -110deg, each level adds 44 degrees
-      setNeedleRotation(-110 + current * 44);
-      if (current >= currentLevel) {
-        clearInterval(interval);
-      }
-    }, 300);
-
-    return () => clearInterval(interval);
+    // Set needle rotation based on currentLevel
+    // 10 o'clock (Starter): -120deg
+    // 12 o'clock (Accumulator): -90deg
+    // 2 o'clock (Achiever): -30deg
+    const rotationMap: { [key: number]: number } = {
+      1: -50,
+      2: -1,
+      3: 60,
+      4: -30,
+      5: -30,
+    };
+    setNeedleRotation(rotationMap[currentLevel] || -120);
   }, [currentLevel]);
 
   const levelColors: { [key: number]: { bg: string; border: string; text: string; label: string } } = {
-    1: { bg: 'bg-[#fef3c7]', border: 'border-[#f59e0b]', text: 'text-[#f59e0b]', label: 'Beginner' },
-    2: { bg: 'bg-[#c7f0d8]', border: 'border-[#10b981]', text: 'text-[#10b981]', label: 'Developing' },
-    3: { bg: 'bg-[#d1fae5]', border: 'border-[#059669]', text: 'text-[#059669]', label: 'Proficient' },
-    4: { bg: 'bg-[#c7f0d8]', border: 'border-[#0891b2]', text: 'text-[#0891b2]', label: 'Advanced' },
-    5: { bg: 'bg-[#fef3c7]', border: 'border-[#7c3aed]', text: 'text-[#7c3aed]', label: 'Master' },
+    1: { bg: 'bg-[#fef3c7]', border: 'border-[#f59e0b]', text: 'text-[#f59e0b]', label: 'Starter' },
+    2: { bg: 'bg-[#c7f0d8]', border: 'border-[#10b981]', text: 'text-[#10b981]', label: 'Accumulator' },
+    3: { bg: 'bg-[#d1fae5]', border: 'border-[#059669]', text: 'text-[#059669]', label: 'Achiever' },
+    4: { bg: 'bg-[#c7f0d8]', border: 'border-[#0891b2]', text: 'text-[#0891b2]', label: 'Achiever' },
+    5: { bg: 'bg-[#fef3c7]', border: 'border-[#7c3aed]', text: 'text-[#7c3aed]', label: 'Achiever' },
   };
 
   const colors = levelColors[currentLevel] || levelColors[1];
@@ -116,18 +113,15 @@ const Speedometer = ({ currentLevel }: SpeedometerProps) => {
           </defs>
         </svg>
 
-        <h3 className="meter-value">{displayLevel}</h3>
       </div>
 
-      {/* Level Display */}
-      <div className="text-center mt-8">
-        <div className={`inline-block px-6 py-2 ${colors.bg} border-2 ${colors.border} rounded-full`}>
-          <span className={`text-2xl font-bold ${colors.text}`}>Level {displayLevel}</span>
-        </div>
-        <div className={`text-lg ${colors.text} font-semibold mt-2`}>
-          {colors.label}
+      {/* Level Display Inside Meter */}
+      <div className="text-center -mt-24 relative z-20">
+        <div className={`inline-block px-4 py-1 ${colors.bg} border-2 ${colors.border} rounded-full`}>
+          <span className={`text-2xl font-bold ${colors.text}`}>{colors.label}</span>
         </div>
       </div>
+
     </div>
   );
 };

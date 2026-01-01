@@ -21,8 +21,8 @@ export default function Home() {
       <HeroSection />
       <ResearchSection />
       {/* <WhyLevplanSection /> */}
-      <PartnersSection />
       <TestimonialsSection />
+      <PartnersSection />
       {/* <RoadmapSection /> */}
       <CalendlySection />
       {/* <FAQSection /> */}

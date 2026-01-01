@@ -13,21 +13,21 @@ interface FormData {
   agreedToTerms: boolean;
 
   // Questions
-  idealRetirement: string;
-  monthlyIncome: string;
-  retirementFactor: string[];
-  lifestyleExpenses: string;
-  investmentConfidence: string;
-  marketDropPlan: string;
-  retirementConcerns: string;
-  moneyLegacy: string;
-  trustAdvisors: string;
-  lastReview: string;
-  automaticSavings: string;
-  financialAdvisorExperience: string;
-  decisionMakers: string;
-  futureProjects: string;
-  financialRating: string;
+  q1_savings: string;
+  q2_emergency: string;
+  q3_disability: string;
+  q4_pension: string;
+  q5_planner: string;
+  q6_will: string;
+  q7_poa: string;
+  q8_helper: string;
+  q9_budget: string;
+  q10_invest: string;
+  q11_cc_debt: string;
+  q12_charity: string;
+  q13_diy: string;
+  q14_loans: string;
+  q15_other: string;
 }
 
 const FinancialQuestionnaire = () => {
@@ -37,42 +37,33 @@ const FinancialQuestionnaire = () => {
     email: '',
     phone: '',
     agreedToTerms: false,
-    idealRetirement: '',
-    monthlyIncome: '',
-    retirementFactor: [],
-    lifestyleExpenses: '',
-    investmentConfidence: '',
-    marketDropPlan: '',
-    retirementConcerns: '',
-    moneyLegacy: '',
-    trustAdvisors: '',
-    lastReview: '',
-    automaticSavings: '',
-    financialAdvisorExperience: '',
-    decisionMakers: '',
-    futureProjects: '',
-    financialRating: '',
+    q1_savings: '',
+    q2_emergency: '',
+    q3_disability: '',
+    q4_pension: '',
+    q5_planner: '',
+    q6_will: '',
+    q7_poa: '',
+    q8_helper: '',
+    q9_budget: '',
+    q10_invest: '',
+    q11_cc_debt: '',
+    q12_charity: '',
+    q13_diy: '',
+    q14_loans: '',
+    q15_other: '',
   });
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState({ powerSaver: 0, riskManager: 0, investmentBuilder: 0 });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const target = e.target as HTMLInputElement;
     
     if (type === 'checkbox') {
-      if (name === 'retirementFactor') {
-        setFormData(prev => ({
-          ...prev,
-          retirementFactor: target.checked
-            ? [...prev.retirementFactor, value]
-            : prev.retirementFactor.filter(item => item !== value)
-        }));
-      } else {
-        setFormData(prev => ({
-          ...prev,
-          [name]: target.checked
-        }));
-      }
+      setFormData(prev => ({
+        ...prev,
+        [name]: target.checked
+      }));
     } else {
       setFormData(prev => ({
         ...prev,
@@ -97,35 +88,42 @@ const FinancialQuestionnaire = () => {
   };
 
   const handleSubmit = () => {
-    // Calculate score based on:
-    // Q2 (monthlyIncome): $2,000-$5,000=1pt, $5,000-$7,500=2pts, $7,500-$10,000=3pts, $10,000+=4pts
-    // Q6 (marketDropPlan): Retire later=0pts, invest more=2pts, work longer=0pts, no difference=1pts, not sure=0pts
-    // Q11 (automaticSavings): Yes=1pt, No=0pts
-    // Max score = 7
+    // Calculate scores for 3 categories
+    let powerSaverScore = 0;
+    let riskManagerScore = 0;
+    let investmentBuilderScore = 0;
 
-    let calculatedScore = 0;
+    // Power Saver questions: 1, 2, 9, 14
+    if (formData.q1_savings === 'Yes') powerSaverScore += 1;
+    if (formData.q2_emergency === 'Yes') powerSaverScore += 1;
+    if (formData.q9_budget === 'Yes') powerSaverScore += 1;
+    if (formData.q14_loans === 'No') powerSaverScore += 1;
 
-    // Q2 scoring
-    if (formData.monthlyIncome === '$2,000-$5,000') calculatedScore += 1;
-    else if (formData.monthlyIncome === '$5,000-$7,500') calculatedScore += 2;
-    else if (formData.monthlyIncome === '$7,500-$10,000') calculatedScore += 3;
-    else if (formData.monthlyIncome === '$10,000+') calculatedScore += 4;
+    // Risk Manager questions: 3, 6, 7, 13
+    if (formData.q3_disability === 'Yes') riskManagerScore += 1;
+    if (formData.q6_will === 'Yes') riskManagerScore += 1;
+    if (formData.q7_poa === 'Yes') riskManagerScore += 1;
+    if (formData.q13_diy === 'No') riskManagerScore += 1;
 
-    // Q6 scoring
-    if (formData.marketDropPlan === 'Invest more') calculatedScore += 2;
-    else if (formData.marketDropPlan === 'No difference') calculatedScore += 1;
+    // Investment Builder questions: 4, 5, 10, 11, 12
+    if (formData.q4_pension === 'Yes') investmentBuilderScore += 1;
+    if (formData.q5_planner === 'Yes') investmentBuilderScore += 1;
+    if (formData.q10_invest === 'Yes') investmentBuilderScore += 1;
+    if (formData.q11_cc_debt === 'No') investmentBuilderScore += 1;
+    if (formData.q12_charity === 'Yes') investmentBuilderScore += 1;
 
-    // Q11 scoring
-    if (formData.automaticSavings === 'Yes') calculatedScore += 1;
-
-    setScore(calculatedScore);
+    setScore({
+      powerSaver: powerSaverScore,
+      riskManager: riskManagerScore,
+      investmentBuilder: investmentBuilderScore
+    });
     setCurrentStep(16); // Navigate to results
   };
 
   return (
     <>
       {currentStep === 16 ? (
-        <ResultsPage score={score} maxScore={7} />
+        <ResultsPage score={score} />
       ) : (
         <main className="w-full bg-white">
           <MobileNav />
@@ -225,32 +223,38 @@ const FinancialQuestionnaire = () => {
                 {currentStep === 1 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      What does the "Ideal Retirement" actually look like for you?
+                      Do you save more than 10% of your income every year?
                     </h3>
-                    <textarea
-                      name="idealRetirement"
-                      value={formData.idealRetirement}
-                      onChange={handleInputChange}
-                      placeholder="Describe your ideal retirement..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q1_savings"
+                            value={option}
+                            checked={formData.q1_savings === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 2 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      How much monthly income would make you feel secure and free once the paycheques stop?
+                      Have you got any savings set aside that would get you through a difficult 3 months?
                     </h3>
                     <div className="space-y-3">
-                      {['$2,000-$5,000', '$5,000-$7,500', '$7,500-$10,000', '$10,000+'].map((option) => (
+                      {['Yes', 'No'].map((option) => (
                         <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
                           <input
                             type="radio"
-                            name="monthlyIncome"
+                            name="q2_emergency"
                             value={option}
-                            checked={formData.monthlyIncome === option}
+                            checked={formData.q2_emergency === option}
                             onChange={handleInputChange}
                           />
                           <span className="text-[#031931]">{option}</span>
@@ -263,16 +267,16 @@ const FinancialQuestionnaire = () => {
                 {currentStep === 3 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      What would need to happen financially for you to feel comfortable retiring earlier than you expected?
+                      Do you have short term or long term disability that pays you if you can't work?
                     </h3>
                     <div className="space-y-3">
-                      {['Save more', 'Pay off mortgage', 'Put kids through school'].map((option) => (
+                      {['Yes', 'No'].map((option) => (
                         <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
                           <input
-                            type="checkbox"
-                            name="retirementFactor"
+                            type="radio"
+                            name="q3_disability"
                             value={option}
-                            checked={formData.retirementFactor.includes(option)}
+                            checked={formData.q3_disability === option}
                             onChange={handleInputChange}
                           />
                           <span className="text-[#031931]">{option}</span>
@@ -285,48 +289,60 @@ const FinancialQuestionnaire = () => {
                 {currentStep === 4 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      Which expenses in your current lifestyle would you want to keep, reduce, or eliminate after retirement?
+                      Will you have a pension waiting for you upon retirement?
                     </h3>
-                    <textarea
-                      name="lifestyleExpenses"
-                      value={formData.lifestyleExpenses}
-                      onChange={handleInputChange}
-                      placeholder="Describe your lifestyle expenses..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q4_pension"
+                            value={option}
+                            checked={formData.q4_pension === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 5 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      How confident are you that your savings and investments are working hard enough to support the life you want?
+                      Have you seen a financial planner or wealth adviser in the last 2 years?
                     </h3>
-                    <textarea
-                      name="investmentConfidence"
-                      value={formData.investmentConfidence}
-                      onChange={handleInputChange}
-                      placeholder="Share your thoughts..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q5_planner"
+                            value={option}
+                            checked={formData.q5_planner === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 6 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      If markets dropped 20% right before you retired, what would your backup plan be?
+                      Do you have a will?
                     </h3>
                     <div className="space-y-3">
-                      {['Retire later', 'Invest more', 'Work longer', 'No difference', 'Not sure'].map((option) => (
+                      {['Yes', 'No'].map((option) => (
                         <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
                           <input
                             type="radio"
-                            name="marketDropPlan"
+                            name="q6_will"
                             value={option}
-                            checked={formData.marketDropPlan === option}
+                            checked={formData.q6_will === option}
                             onChange={handleInputChange}
                           />
                           <span className="text-[#031931]">{option}</span>
@@ -339,80 +355,104 @@ const FinancialQuestionnaire = () => {
                 {currentStep === 7 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      What are your biggest concerns or fears when you think about retirement?
+                      Do you have a POA (Power of Attorney)?
                     </h3>
-                    <textarea
-                      name="retirementConcerns"
-                      value={formData.retirementConcerns}
-                      onChange={handleInputChange}
-                      placeholder="Share your concerns..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q7_poa"
+                            value={option}
+                            checked={formData.q7_poa === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 8 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      What kind of legacy—or impact—do you want your money to have after you're gone?
+                      Is there another person helping you make important financial decisions?
                     </h3>
-                    <textarea
-                      name="moneyLegacy"
-                      value={formData.moneyLegacy}
-                      onChange={handleInputChange}
-                      placeholder="Describe your legacy..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q8_helper"
+                            value={option}
+                            checked={formData.q8_helper === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 9 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      Who are the people you trust to help you make big financial decisions over the next decade?
+                      Do you have a monthly budget?
                     </h3>
-                    <textarea
-                      name="trustAdvisors"
-                      value={formData.trustAdvisors}
-                      onChange={handleInputChange}
-                      placeholder="List the people you trust..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q9_budget"
+                            value={option}
+                            checked={formData.q9_budget === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 10 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      When was the last time you reviewed your plan and updated it to reflect the life you're actually living now?
+                      Do you regularly invest into stocks, shares or funds?
                     </h3>
-                    <textarea
-                      name="lastReview"
-                      value={formData.lastReview}
-                      onChange={handleInputChange}
-                      placeholder="When did you last review your plan..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q10_invest"
+                            value={option}
+                            checked={formData.q10_invest === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 11 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      Do you automatically save every month?
+                      Do you have credit card debt?
                     </h3>
                     <div className="space-y-3">
-                      {['Yes', 'No', 'Sometimes'].map((option) => (
+                      {['Yes', 'No'].map((option) => (
                         <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
                           <input
                             type="radio"
-                            name="automaticSavings"
+                            name="q11_cc_debt"
                             value={option}
-                            checked={formData.automaticSavings === option}
+                            checked={formData.q11_cc_debt === option}
                             onChange={handleInputChange}
                           />
                           <span className="text-[#031931]">{option}</span>
@@ -425,16 +465,16 @@ const FinancialQuestionnaire = () => {
                 {currentStep === 12 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      Have you worked with a financial advisor before?
+                      Do you want to leave money to charity when you pass away?
                     </h3>
                     <div className="space-y-3">
-                      {['Yes', 'No', 'Currently working with one'].map((option) => (
+                      {['Yes', 'No'].map((option) => (
                         <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
                           <input
                             type="radio"
-                            name="financialAdvisorExperience"
+                            name="q12_charity"
                             value={option}
-                            checked={formData.financialAdvisorExperience === option}
+                            checked={formData.q12_charity === option}
                             onChange={handleInputChange}
                           />
                           <span className="text-[#031931]">{option}</span>
@@ -447,45 +487,57 @@ const FinancialQuestionnaire = () => {
                 {currentStep === 13 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      When you think about your finances, who else is involved in the decision-making process?
+                      Do you like to do everything yourself when it comes to finances and investing?
                     </h3>
-                    <textarea
-                      name="decisionMakers"
-                      value={formData.decisionMakers}
-                      onChange={handleInputChange}
-                      placeholder="Describe who is involved..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q13_diy"
+                            value={option}
+                            checked={formData.q13_diy === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 14 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      Are you planning any big projects or philanthropy in the future?
+                      Have you got loans for personal items outside of your home? (e.g., a vehicle, travel trailer)
                     </h3>
-                    <textarea
-                      name="futureProjects"
-                      value={formData.futureProjects}
-                      onChange={handleInputChange}
-                      placeholder="Tell us about your plans..."
-                      rows={4}
-                      className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
-                    />
+                    <div className="space-y-3">
+                      {['Yes', 'No'].map((option) => (
+                        <label key={option} className="flex items-center gap-3 p-3 border border-[#babbb7] rounded-lg hover:bg-[#f6f6f6] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="q14_loans"
+                            value={option}
+                            checked={formData.q14_loans === option}
+                            onChange={handleInputChange}
+                          />
+                          <span className="text-[#031931]">{option}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 15 && (
                   <div>
                     <h3 className="text-2xl font-semibold text-[#031931] mb-4">
-                      On a scale of 1-10, how would you rate your financial situation? What would it take to get you to a 10?
+                      Is there anything else you would like to share?
                     </h3>
                     <textarea
-                      name="financialRating"
-                      value={formData.financialRating}
+                      name="q15_other"
+                      value={formData.q15_other}
                       onChange={handleInputChange}
-                      placeholder="Share your rating and thoughts..."
+                      placeholder="Share anything else you'd like us to know..."
                       rows={4}
                       className="w-full px-4 py-3 bg-transparent border border-[#babbb7] rounded-lg text-[#031931] placeholder-[#515151] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
                     />

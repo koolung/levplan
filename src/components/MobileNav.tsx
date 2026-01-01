@@ -42,40 +42,23 @@ const MobileNav = () => {
     setIsOpen(false);
   };
 
-  const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Who We Are', href: '/who-we-are' },
-    { label: 'Blog', href: '/our-blog' },
-    { label: 'Free YouTube', href: '/free-youtube-guidance' },
-    { label: 'Pricing', href: '/pricing' },
-  ];
+  // Calendly meeting link
+  const CALENDLY_LINK = 'https://calendly.com/levplan';
 
   return (
     <>
       {/* Mobile Header - Dynamic with scroll */}
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 md:hidden w-full transition-all duration-300 ${
-          isScrolled ? 'header-scrolled' : 'header-transparent'
-        }`}
-      >
+      <header className="fixed top-0 left-0 right-0 z-50 md:hidden w-full bg-[#031931]">
         <div className="flex justify-between items-center px-6 py-2">
           {/* Logo Container */}
           <Link href="/">
             <div className="relative h-14 w-48 flex items-center -ml-7">
               <Image
-                src="/images/logo_dark.svg"
-                alt="Logo Dark"
-                width={180}
-                height={40}
-                className={`logo-image logo-dark h-36 object-contain`}
-                priority
-              />
-              <Image
                 src="/images/logo_white.svg"
                 alt="Logo White"
                 width={180}
                 height={40}
-                className={`logo-image logo-white h-36 object-contain`}
+                className="h-36 object-contain"
                 priority
               />
             </div>
@@ -89,15 +72,9 @@ const MobileNav = () => {
             }`}
             aria-label="Toggle menu"
           >
-            <span
-              className={`hamburger-line block w-6 h-0.5 transition-all duration-300 origin-center`}
-            />
-            <span
-              className={`hamburger-line block w-6 h-0.5 transition-all duration-300`}
-            />
-            <span
-              className={`hamburger-line block w-6 h-0.5 transition-all duration-300 origin-center`}
-            />
+            <span className="block w-6 h-0.5 bg-white transition-all duration-300 origin-center" />
+            <span className="block w-6 h-0.5 bg-white transition-all duration-300" />
+            <span className="block w-6 h-0.5 bg-white transition-all duration-300 origin-center" />
           </button>
         </div>
       </header>
@@ -138,32 +115,23 @@ const MobileNav = () => {
               />
             </svg>
           </button>
-          <div className="flex flex-col gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={closeMenu}
-                className="text-lg font-semibold text-white hover:text-[#e7a832] transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link href="/questionnaire" onClick={closeMenu} className="w-full">
-              <button className="w-full uppercase py-3 bg-transparent border-2 border-[#f0b94a] text-[#f0b94a] font-semibold hover:shadow-lg transition-shadow duration-200">
-                Take the Assessment
+          <div className="flex flex-col gap-6">
+            {/* Book a Call Button */}
+            <a href={CALENDLY_LINK} target="_blank" rel="noopener noreferrer" onClick={closeMenu} className="w-full">
+              <button className="w-full uppercase py-3 bg-transparent border-2 border-[#e7a832] text-[#e7a832] font-semibold hover:shadow-lg transition-shadow duration-200">
+                Book a Call
               </button>
-            </Link>
+            </a>
+            {/* Client Login Button */}
+            <button className="w-full uppercase py-3 bg-[#e7a832] text-[#031931] font-semibold hover:shadow-lg transition-shadow duration-200">
+              Client Login
+            </button>
           </div>
         </div>
       </nav>
 
       {/* Desktop Navigation */}
-      <nav
-        className={`hidden md:flex fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'header-scrolled' : 'header-transparent'
-        }`}
-      >
+      <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-[#031931]">
         <div className="max-w-7xl mx-auto w-full flex justify-between items-center px-6 py-3">
           {/* Logo Container */}
           <Link href="/">
@@ -173,36 +141,22 @@ const MobileNav = () => {
                 alt="Logo White"
                 width={720}
                 height={720}
-                className={`logo-image logo-white h-30 object-contain`}
-                priority
-              />
-              <Image
-                src="/images/logo_dark.svg"
-                alt="Logo Dark"
-                width={720}
-                height={720}
-                className={`logo-image logo-dark h-30 object-contain`}
+                className="h-30 object-contain"
                 priority
               />
             </div>
           </Link>
-          <div className="flex gap-8 items-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-medium transition-colors duration-200 ${
-                  isScrolled ? 'text-[#031931] hover:text-[#e7a832]' : 'text-white hover:text-[#e7a832]'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link href="/questionnaire">
-              <button className="px-6 py-2 bg-transparent uppercase text-[#e7a832] font-medium border border-[#e7a832] rounded-[2px] hover:shadow-lg transition-shadow duration-200">
-                Take the Assessment
+          <div className="flex gap-6 items-center">
+            {/* Book a Call Button */}
+            <a href={CALENDLY_LINK} target="_blank" rel="noopener noreferrer">
+              <button className="font-medium text-white hover:text-[#e7a832] transition-colors duration-200">
+                Book a Call
               </button>
-            </Link>
+            </a>
+            {/* Client Login Button */}
+            <button className="px-6 py-2 bg-[#e7a832] text-[#031931] uppercase text-sm font-medium rounded-[2px] hover:shadow-lg transition-shadow duration-200">
+              Client Login
+            </button>
           </div>
         </div>
       </nav>

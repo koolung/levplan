@@ -26,17 +26,17 @@ const CalendlySection = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-4xl md:text-5xl font-medium text-[#031931] mb-4">
-            Schedule Your Consultation
+            If you have any questions we would be happy to schedule a short 15 minute consultation
           </h2>
                   <hr className="w-24 border-t-4 border-[#e7a832] mx-auto mb-6" />
 
           <p className="text-[#5a5a57] text-lg max-w-2xl mx-auto">
-            Book a time that works best for you. Our financial advisors are ready to help.
+            Book a time that works best for you. 
           </p>
         </div>
 
         {/* Calendly Embed - Full Size */}
-        <div className="w-full" style={{ height: '150vh' }}>
+        <div className="w-full" style={{ height: '100vh' }}>
           <div
             className="calendly-inline-widget w-full h-full"
             data-url="https://calendly.com/bedfordwebservices-info/30min"

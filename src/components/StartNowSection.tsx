@@ -14,13 +14,11 @@ const StartNowSection = () => {
 
         </h2>
         <hr className="w-24 border-t-4 border-[#e7a832] mx-auto mb-6" />
-        <p className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl mx-auto">
-          Get your personalized financial plan. <br></br>Takes about 3 minutes - Absolutely free - Get 3 instant retirement planning
-recommendations.
+        <p className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl mx-auto"> Takes about 3 minutes - Absolutely free - Get your instant planning recommendations
         </p>
         <Link href="/questionnaire">
           <button className="px-8 md:px-12 py-4 md:py-5 bg-transparent border-2 border-[#e7a832] text-[#e7a832] font-bold text-lg md:text-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-            Get Started Today
+            Take the assessment
           </button>
         </Link>
         <p className="mt-6 text-sm text-white/75">
