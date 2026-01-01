@@ -31,7 +31,7 @@ const PowerSaver3Page = () => {
           </div>
 
           {/* Description */}
-          <div className="bg-[#fef3c7] border-l-4 border-[#f59e0b] p-8 md:p-12 rounded-lg mb-12">
+          <div className="bg-[transparent] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm">
             <h2 className="text-3xl md:text-4xl font-bold text-[#031931] mb-6">
               Excellent work!
             </h2>
@@ -49,59 +49,89 @@ const PowerSaver3Page = () => {
               Action Steps:
             </h3>
 
-            <div className="space-y-6">
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Optimize your tax-advantaged accounts
-                </h4>
-                <p className="text-[#5a5a57]">
-                  RRSP, TFSA. Take advantage of every opportunity to grow your wealth tax-free.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Optimize your tax-advantaged accounts
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    RRSP, TFSA. Take advantage of every opportunity to grow your wealth tax-free.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Consider the First Home Savings Account (FHSA)
-                </h4>
-                <p className="text-[#5a5a57]">
-                  If you're planning to buy a home, contribute $8,000/year with a significant tax deduction!
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Consider the First Home Savings Account (FHSA)
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    If you're planning to buy a home, contribute $8,000/year with a significant tax deduction!
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Review your savings allocation
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Emergency fund should be 6+ months expenses, then invest the rest.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Review your savings allocation
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Emergency fund should be 6+ months expenses, then invest the rest.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Explore registered education savings plans (RESPs)
-                </h4>
-                <p className="text-[#5a5a57]">
-                  If you have children, government grants add 20-40% plus you can invest it.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">4</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Explore registered education savings plans (RESPs)
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    If you have children, government grants add 20-40% plus you can invest it.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Set specific savings goals with timelines
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Retirement, major purchases, education. Clear goals keep you motivated.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">5</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Set specific savings goals with timelines
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Retirement, major purchases, education. Clear goals keep you motivated.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Tax & Planning Insight
-                </h4>
-                <p className="text-[#5a5a57]">
-                  The Home Buyers' Plan allows you to withdraw up to $60,000 from your RRSP for a first home purchase. But you will have to pay it back or it will get taxed back to you. An FHSA does not.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">6</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Tax & Planning Insight
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    The Home Buyers' Plan allows you to withdraw up to $60,000 from your RRSP for a first home purchase. But you will have to pay it back or it will get taxed back to you. An FHSA does not.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

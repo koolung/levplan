@@ -1,4 +1,3 @@
-import MobileNav from '@/components/MobileNav';
 import Footer from '@/components/Footer';
 import FinancialQuestionnaire from '@/components/FinancialQuestionnaire';
 
@@ -9,10 +8,11 @@ export const metadata = {
 
 export default function QuestionnairePage() {
   return (
-    <main className="w-full bg-white">
-      <MobileNav />
-      <FinancialQuestionnaire />
-      <Footer />
+    <main className="w-full min-h-screen bg-cover bg-center relative" style={{ backgroundImage: 'url(/images/beach.jpeg)' }}>
+      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="relative z-10">
+        <FinancialQuestionnaire />
+      </div>
     </main>
   );
 }

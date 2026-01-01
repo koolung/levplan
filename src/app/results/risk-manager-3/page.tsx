@@ -31,7 +31,7 @@ const RiskManager3Page = () => {
           </div>
 
           {/* Description */}
-          <div className="bg-[#fef3c7] border-l-4 border-[#f59e0b] p-8 md:p-12 rounded-lg mb-12">
+          <div className="bg-[transparent] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm">
             <h2 className="text-3xl md:text-4xl font-bold text-[#031931] mb-6">
               Outstanding! You've put comprehensive protections in place.
             </h2>
@@ -49,68 +49,103 @@ const RiskManager3Page = () => {
               Action Steps:
             </h3>
 
-            <div className="space-y-6">
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Review and update your estate plan annually
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Especially beneficiary designations.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Review and update your estate plan annually
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Especially beneficiary designations.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Consider an estate freeze strategy
-                </h4>
-                <p className="text-[#5a5a57]">
-                  If you have significant assets or a family business.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Consider an estate freeze strategy
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    If you have significant assets or a family business.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Ensure your POAs are registered
-                </h4>
-                <p className="text-[#5a5a57]">
-                  With financial institutions and healthcare providers.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Ensure your POAs are registered
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    With financial institutions and healthcare providers.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Review insurance coverage every 2-3 years
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Your needs change as your wealth grows.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">4</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Review insurance coverage every 2-3 years
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Your needs change as your wealth grows.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Work with an estate lawyer
-                </h4>
-                <p className="text-[#5a5a57]">
-                  To minimize probate fees through joint ownership and beneficiary designations.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">5</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Work with an estate lawyer
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    To minimize probate fees through joint ownership and beneficiary designations.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Consider establishing a living trust
-                </h4>
-                <p className="text-[#5a5a57]">
-                  For privacy and efficient asset transfer.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">6</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Consider establishing a living trust
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    For privacy and efficient asset transfer.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Know about probate fees
-                </h4>
-                <p className="text-[#5a5a57]">
-                  In some provinces they're 1.5% on estates over $50,000—proper planning can significantly reduce or eliminate these costs.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">7</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Know about probate fees
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    In some provinces they're 1.5% on estates over $50,000—proper planning can significantly reduce or eliminate these costs.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

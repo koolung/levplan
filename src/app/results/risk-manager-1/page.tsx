@@ -31,7 +31,7 @@ const RiskManager1Page = () => {
           </div>
 
           {/* Description */}
-          <div className="bg-[#fef3c7] border-l-4 border-[#f59e0b] p-8 md:p-12 rounded-lg mb-12">
+          <div className="bg-[transparent] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm">
             <h2 className="text-3xl md:text-4xl font-bold text-[#031931] mb-6">
               Your risk management foundation needs attention.
             </h2>
@@ -49,59 +49,89 @@ const RiskManager1Page = () => {
               Action Steps:
             </h3>
 
-            <div className="space-y-6">
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Create a basic will immediately
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Even a simple holographic (on paper) will is better than none.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Create a basic will immediately
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Even a simple holographic (on paper) will is better than none.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Get disability insurance quotes
-                </h4>
-                <p className="text-[#5a5a57]">
-                  You're more likely to become disabled than die before retirement (30% vs 3%).
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Get disability insurance quotes
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    You're more likely to become disabled than die before retirement (30% vs 3%).
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Consider term life insurance
-                </h4>
-                <p className="text-[#5a5a57]">
-                  If you have dependents, it's affordable and provides crucial protection. Get an insurance needs analysis to find out recommended amounts.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Consider term life insurance
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    If you have dependents, it's affordable and provides crucial protection. Get an insurance needs analysis to find out recommended amounts.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Designate beneficiaries
-                </h4>
-                <p className="text-[#5a5a57]">
-                  On all registered accounts (RRSP, TFSA, RESP).
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">4</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Designate beneficiaries
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    On all registered accounts (RRSP, TFSA, RESP).
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Review employer coverage
-                </h4>
-                <p className="text-[#5a5a57]">
-                  What coverage your employer provides and identify gaps.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">5</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Review employer coverage
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    What coverage your employer provides and identify gaps.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Know your provincial laws
-                </h4>
-                <p className="text-[#5a5a57]">
-                  In Canada, dying intestate (without a will) means provincial laws determine asset distribution, which may not match your wishes.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">6</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Know your provincial laws
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    In Canada, dying intestate (without a will) means provincial laws determine asset distribution, which may not match your wishes.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

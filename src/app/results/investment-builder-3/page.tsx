@@ -31,7 +31,7 @@ const InvestmentBuilder3Page = () => {
           </div>
 
           {/* Description */}
-          <div className="bg-[#fef3c7] border-l-4 border-[#f59e0b] p-8 md:p-12 rounded-lg mb-12">
+          <div className="bg-[transparent] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm">
             <h2 className="text-3xl md:text-4xl font-bold text-[#031931] mb-6">
               Exceptional! You're taking control of your financial future
             </h2>
@@ -49,77 +49,117 @@ const InvestmentBuilder3Page = () => {
               Action Steps:
             </h3>
 
-            <div className="space-y-6">
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Implement tax-loss harvesting strategies
-                </h4>
-                <p className="text-[#5a5a57]">
-                  In non-registered accounts to offset capital gains.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Implement tax-loss harvesting strategies
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    In non-registered accounts to offset capital gains.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Plan strategic RRSP withdrawals
-                </h4>
-                <p className="text-[#5a5a57]">
-                  In lower-income years to minimize lifetime taxes.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Plan strategic RRSP withdrawals
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    In lower-income years to minimize lifetime taxes.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Plan your CPP and OAS timing
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Delaying CPP to 70 increases benefits by 42%.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Plan your CPP and OAS timing
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Delaying CPP to 70 increases benefits by 42%.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Review your asset allocation annually
-                </h4>
-                <p className="text-[#5a5a57]">
-                  And rebalance to maintain target percentages.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">4</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Review your asset allocation annually
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    And rebalance to maintain target percentages.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Explore advanced strategies
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Income splitting with spouse, prescribed rate loans, holding companies.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">5</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Explore advanced strategies
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Income splitting with spouse, prescribed rate loans, holding companies.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Plan charitable giving strategically
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Donating appreciated securities avoids capital gains tax.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">6</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Plan charitable giving strategically
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Donating appreciated securities avoids capital gains tax.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Consider pension income splitting
-                </h4>
-                <p className="text-[#5a5a57]">
-                  With your spouse (up to 50%).
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">7</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Consider pension income splitting
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    With your spouse (up to 50%).
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Manage OAS clawback thresholds
-                </h4>
-                <p className="text-[#5a5a57]">
-                  The OAS clawback begins at ~$93,000 income—strategic RRSP/RRIF withdrawals can help you stay under thresholds.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">8</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Manage OAS clawback thresholds
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    The OAS clawback begins at ~$93,000 income—strategic RRSP/RRIF withdrawals can help you stay under thresholds.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

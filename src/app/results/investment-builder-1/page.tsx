@@ -49,59 +49,89 @@ const InvestmentBuilder1Page = () => {
               Action Steps:
             </h3>
 
-            <div className="space-y-6">
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg hover:bg-[#f0ede8] transition-all duration-300">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Open a TFSA and start with low-cost index funds
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Tax-free growth is your friend.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Open a TFSA and start with low-cost index funds
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Tax-free growth is your friend.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg hover:bg-[#f0ede8] transition-all duration-300">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Contribute to your employer's group RRSP
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Especially if they match contributions.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Contribute to your employer's group RRSP
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Especially if they match contributions.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg hover:bg-[#f0ede8] transition-all duration-300">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Focus on paying off high-interest debt first
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Credit cards, payday loans before aggressive investing.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Focus on paying off high-interest debt first
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Credit cards, payday loans before aggressive investing.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg hover:bg-[#f0ede8] transition-all duration-300">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Learn about asset allocation
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Younger investors can typically handle more stocks vs bonds.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">4</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Learn about asset allocation
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Younger investors can typically handle more stocks vs bonds.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg hover:bg-[#f0ede8] transition-all duration-300">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Start with small, regular contributions
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Consistency matters more than amount when starting out.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">5</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Start with small, regular contributions
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Consistency matters more than amount when starting out.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg hover:bg-[#f0ede8] transition-all duration-300">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Know the power of compound growth
-                </h4>
-                <p className="text-[#5a5a57]">
-                  At 7% annual return, $500/month invested for 30 years grows to over $600,000.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">6</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Know the power of compound growth
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    At 7% annual return, $500/month invested for 30 years grows to over $600,000.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

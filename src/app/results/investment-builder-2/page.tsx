@@ -31,7 +31,7 @@ const InvestmentBuilder2Page = () => {
           </div>
 
           {/* Description */}
-          <div className="bg-[#fef3c7] border-l-4 border-[#f59e0b] p-8 md:p-12 rounded-lg mb-12">
+          <div className="bg-[transparent] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm">
             <h2 className="text-3xl md:text-4xl font-bold text-[#031931] mb-6">
               You're building momentum!
             </h2>
@@ -49,59 +49,89 @@ const InvestmentBuilder2Page = () => {
               Action Steps:
             </h3>
 
-            <div className="space-y-6">
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Meet with a fee-only financial planner
-                </h4>
-                <p className="text-[#5a5a57]">
-                  To create a comprehensive retirement plan.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Meet with a fee-only financial planner
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    To create a comprehensive retirement plan.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Calculate your retirement needs
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Typically 70-80% of pre-retirement income.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Calculate your retirement needs
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Typically 70-80% of pre-retirement income.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Understand the CPP and OAS benefits
-                </h4>
-                <p className="text-[#5a5a57]">
-                  CPP at 65 averages $8,500-12,000/year.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Understand the CPP and OAS benefits
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    CPP at 65 averages $8,500-12,000/year.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Diversify beyond just stocks
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Consider bonds, REITs, and international exposure.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">4</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Diversify beyond just stocks
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Consider bonds, REITs, and international exposure.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Understand your pension type
-                </h4>
-                <p className="text-[#5a5a57]">
-                  If you have a pension, know whether it's defined benefit or defined contribution.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">5</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Understand your pension type
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    If you have a pension, know whether it's defined benefit or defined contribution.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Review your investment fees
-                </h4>
-                <p className="text-[#5a5a57]">
-                  High MER fees (2%+) can cost you hundreds of thousands over a career.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">6</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Review your investment fees
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    High MER fees (2%+) can cost you hundreds of thousands over a career.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import MobileNav from './MobileNav';
-import Footer from './Footer';
 import ResultsPage from './ResultsPage';
 
 interface FormData {
@@ -125,11 +123,9 @@ const FinancialQuestionnaire = () => {
       {currentStep === 16 ? (
         <ResultsPage score={score} />
       ) : (
-        <main className="w-full bg-white">
-          <MobileNav />
-          <section className="min-h-screen pt-32 md:pt-24 pb-16 px-4">
-            <div className="max-w-2xl mx-auto">
-              {currentStep === 0 ? (
+        <section className="min-h-screen pt-32 md:pt-24 pb-16 px-4">
+          <div className="max-w-2xl mx-auto rounded-2xl bg-white/80 backdrop-blur-sm p-8">
+            {currentStep === 0 ? (
             // Initial Page
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-[#031931] mb-6">
@@ -573,9 +569,6 @@ const FinancialQuestionnaire = () => {
           )}
             </div>
           </section>
-
-          <Footer />
-        </main>
       )}
     </>
   );

@@ -31,7 +31,7 @@ const PowerSaver1Page = () => {
           </div>
 
           {/* Description */}
-          <div className="bg-[#fef3c7] border-l-4 border-[#f59e0b] p-8 md:p-12 rounded-lg mb-12">
+          <div className="bg-[transparent] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm">
             <h2 className="text-3xl md:text-4xl font-bold text-[#031931] mb-6">
               You're at the beginning of your savings journey.
             </h2>
@@ -49,59 +49,89 @@ const PowerSaver1Page = () => {
               Action Steps:
             </h3>
 
-            <div className="space-y-6">
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Start with the "pay yourself first" principle
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Set up automatic transfers to a Tax-Free Savings Account (TFSA) or a high interest savings account on payday.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Start with the "pay yourself first" principle
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Set up automatic transfers to a Tax-Free Savings Account (TFSA) or a high interest savings account on payday.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Build an emergency fund of 3-6 months expenses
-                </h4>
-                <p className="text-[#5a5a57]">
-                  Start small, but make it a priority.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Build an emergency fund of 3-6 months expenses
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    Start small, but make it a priority.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Track your spending for one month
-                </h4>
-                <p className="text-[#5a5a57]">
-                  If you find things are tight, identify areas where you can cut back. Coffee, Netflix, Spotify, bank fees, etc. They add up.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Track your spending for one month
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    If you find things are tight, identify areas where you can cut back. Coffee, Netflix, Spotify, bank fees, etc. They add up.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Consider the 50/30/20 budget rule
-                </h4>
-                <p className="text-[#5a5a57]">
-                  50% needs, 30% wants, 20% savings
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">4</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Consider the 50/30/20 budget rule
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    50% needs, 30% wants, 20% savings
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Take advantage of employer RRSP matching programs
-                </h4>
-                <p className="text-[#5a5a57]">
-                  It's free money
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">5</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Take advantage of employer RRSP matching programs
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    It's free money
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6 bg-[#f9f8f6] border-l-4 border-[#e7a832] rounded-lg">
-                <h4 className="text-xl font-bold text-[#031931] mb-2">
-                  Canada Learning Bond and Canada Education Savings Grant
-                </h4>
-                <p className="text-[#5a5a57]">
-                  If you have kids, these can help with children's education savings.
-                </p>
+              <div className="p-6 bg-[#f9f8f6] border-2 border-[#e7a832] rounded-xl hover:shadow-lg transition-shadow duration-300 flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-[#e7a832] rounded-full flex items-center justify-center">
+                  <span className="text-[#031931] font-bold text-lg">6</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#031931] mb-2">
+                    Canada Learning Bond and Canada Education Savings Grant
+                  </h4>
+                  <p className="text-[#5a5a57]">
+                    If you have kids, these can help with children's education savings.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
