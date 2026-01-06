@@ -129,7 +129,7 @@ const FinancialQuestionnaire = () => {
             // Initial Page
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-[#031931] mb-6">
-                Please complete to start your quiz
+                Please complete to start your assessment
               </h1>
               
               <form className="space-y-6 mb-8">
@@ -197,7 +197,7 @@ const FinancialQuestionnaire = () => {
                 onClick={handleNext}
                 className="w-full px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
               >
-                Start Quiz
+                Start Assessment
               </button>
             </div>
           ) : (

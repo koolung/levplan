@@ -198,7 +198,7 @@ const WhyLevplanSection = () => {
                       </div>
                       <Link href="/questionnaire">
                         <button className="w-full px-6 py-2 bg-transparent border-2 border-[#f0b94a] text-[#f0b94a] font-bold uppercase text-sm hover:bg-[#f0b94a] hover:text-[#031931] transition-colors duration-200">
-                          Take a Quiz
+                          Take an Assessment
                         </button>
                       </Link>
                     </div>
