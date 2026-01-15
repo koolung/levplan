@@ -2,6 +2,21 @@
 
 import { useEffect } from 'react';
 
+// Extend Window interface to include Calendly
+declare global {
+  interface Window {
+    Calendly: {
+      initBadgeWidget: (options: {
+        url: string;
+        text: string;
+        color: string;
+        textColor: string;
+        branding: boolean;
+      }) => void;
+    };
+  }
+}
+
 const CalendlySection = () => {
   useEffect(() => {
     // Load Calendly widget CSS
