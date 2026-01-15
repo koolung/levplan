@@ -1,13 +1,22 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import PrivacyPolicyModal from './PrivacyPolicyModal';
+import TermsOfServiceModal from './TermsOfServiceModal';
+import CookiePolicyModal from './CookiePolicyModal';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
+  const [isTermsOfServiceOpen, setIsTermsOfServiceOpen] = useState(false);
+  const [isCookiePolicyOpen, setIsCookiePolicyOpen] = useState(false);
 
   return (
     <footer className="bg-[#031931] text-white py-12 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div>
             <Image
@@ -29,8 +38,8 @@ const Footer = () => {
               <li><Link href="/" className="hover:text-white transition-colors duration-200">Home</Link></li>
               <li><Link href="/who-we-are" className="hover:text-white transition-colors duration-200">Who We Are</Link></li>
               <li><Link href="/our-blog" className="hover:text-white transition-colors duration-200">Blog</Link></li>
-              <li><Link href="/free-youtube-guidance" className="hover:text-white transition-colors duration-200">Free YouTube</Link></li>
-              <li><Link href="/questionnaire" className="hover:text-white transition-colors duration-200">Free Plan</Link></li>
+              <li><Link href="/mission-statement" className="hover:text-white transition-colors duration-200">Mission Statement</Link></li>
+              <li><Link href="/questionnaire" className="hover:text-white transition-colors duration-200">Free Assessment</Link></li>
             </ul>
           </div>
 
@@ -56,16 +65,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Partners */}
-          <div>
-            <h4 className="font-bold mb-4 text-white">Partners</h4>
-            <ul className="space-y-2 text-[#babbb7] text-sm">
-              <li><a href="#" className="hover:text-white transition-colors duration-200">Team</a></li>
-              <li><a href="#" className="hover:text-white transition-colors duration-200">Connect With Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors duration-200">Partnerships</a></li>
-              <li><a href="#" className="hover:text-white transition-colors duration-200">Careers</a></li>
-            </ul>
-          </div>
         </div>
 
         {/* Divider */}
@@ -74,9 +73,24 @@ const Footer = () => {
             <p>&copy; {currentYear} LevPlan. All rights reserved.</p>
 
             <div className="flex gap-6 mt-4 md:mt-0">
-              <a href="#" className="hover:text-white transition-colors duration-200">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors duration-200">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors duration-200">Cookie Policy</a>
+              <button
+                onClick={() => setIsPrivacyPolicyOpen(true)}
+                className="hover:text-white transition-colors duration-200 cursor-pointer bg-none border-none p-0 text-[#babbb7]"
+              >
+                Privacy Policy
+              </button>
+              <button
+                onClick={() => setIsTermsOfServiceOpen(true)}
+                className="hover:text-white transition-colors duration-200 cursor-pointer bg-none border-none p-0 text-[#babbb7]"
+              >
+                Terms of Service
+              </button>
+              <button
+                onClick={() => setIsCookiePolicyOpen(true)}
+                className="hover:text-white transition-colors duration-200 cursor-pointer bg-none border-none p-0 text-[#babbb7]"
+              >
+                Cookie Policy
+              </button>
             </div>
           </div>
 
@@ -92,6 +106,19 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      <PrivacyPolicyModal
+        isOpen={isPrivacyPolicyOpen}
+        onClose={() => setIsPrivacyPolicyOpen(false)}
+      />
+      <TermsOfServiceModal
+        isOpen={isTermsOfServiceOpen}
+        onClose={() => setIsTermsOfServiceOpen(false)}
+      />
+      <CookiePolicyModal
+        isOpen={isCookiePolicyOpen}
+        onClose={() => setIsCookiePolicyOpen(false)}
+      />
     </footer>
   );
 };
