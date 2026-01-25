@@ -4,12 +4,12 @@ import { generateQuestionnaireEmailHTML } from '@/lib/questionnaireEmailTemplate
 
 // Configure your SMTP transporter
 const transporter = nodemailer.createTransport({
-  host: 'smtp.hostinger.com',
-  port: 465,
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT || '465'),
   secure: true,
   auth: {
-    user: 'contact@levplan.com',
-    pass: 'Levplan@2025',
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 });
 // 
