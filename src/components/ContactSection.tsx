@@ -11,6 +11,8 @@ const ContactSection = () => {
     phone: '',
     message: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,11 +41,52 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setIsLoading(true);
+    setSubmitMessage(null);
+
+    try {
+      // Execute reCAPTCHA v3
+      const recaptchaToken = await (window as any).grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+        { action: 'contact_form' }
+      );
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          recaptchaToken,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage({
+          type: 'success',
+          text: data.message || 'Message sent successfully! We will get back to you soon.',
+        });
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setSubmitMessage({
+          type: 'error',
+          text: data.error || 'Failed to send message. Please try again.',
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitMessage({
+        type: 'error',
+        text: 'Failed to send message. Please try again later.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -94,6 +137,18 @@ const ContactSection = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
+          {submitMessage && (
+            <div
+              className={`mb-6 p-4 rounded-lg ${
+                submitMessage.type === 'success'
+                  ? 'bg-green-50 border border-green-200 text-green-700'
+                  : 'bg-red-50 border border-red-200 text-red-700'
+              }`}
+            >
+              {submitMessage.text}
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <input
               type="text"
@@ -102,7 +157,8 @@ const ContactSection = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="px-4 py-3 bg-transparent border-b border-[#515151] text-[#515151] placeholder-[#8b8c89] focus:underline-[#515151] transition-all duration-300"
+              disabled={isLoading}
+              className="px-4 py-3 bg-transparent border-b border-[#515151] text-[#515151] placeholder-[#8b8c89] focus:underline-[#515151] transition-all duration-300 disabled:opacity-50"
             />
             <input
               type="email"
@@ -111,7 +167,8 @@ const ContactSection = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="px-4 py-3 bg-transparent border-b border-[#515151]  placeholder-[#8b8c89] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+              disabled={isLoading}
+              className="px-4 py-3 bg-transparent border-b border-[#515151]  placeholder-[#8b8c89] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300 disabled:opacity-50"
             />
             <input
               type="phone"
@@ -119,7 +176,8 @@ const ContactSection = () => {
               placeholder="Your Phone (optional)"
               value={formData.phone}
               onChange={handleChange}
-              className="px-4 py-3 bg-transparent border-b border-[#515151]  placeholder-[#8b8c89] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300"
+              disabled={isLoading}
+              className="px-4 py-3 bg-transparent border-b border-[#515151]  placeholder-[#8b8c89] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300 disabled:opacity-50"
             />
           </div>
 
@@ -130,14 +188,16 @@ const ContactSection = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-transparent border border-[#515151]  placeholder-[#8b8c89] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300 mb-6 resize-none"
+            disabled={isLoading}
+            className="w-full px-4 py-3 bg-transparent border border-[#515151]  placeholder-[#8b8c89] focus:outline-none focus:ring-2 focus:ring-[#e7a832] transition-all duration-300 mb-6 resize-none disabled:opacity-50"
           />
 
           <button
             type="submit"
-            className="w-full md:w-auto px-8 py-3 bg-[#002349] text-white uppercase font-light hover:shadow-lg transition-shadow duration-300"
+            disabled={isLoading}
+            className="w-full md:w-auto px-8 py-3 bg-[#002349] text-white uppercase font-light hover:shadow-lg transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send Message
+            {isLoading ? 'Sending...' : 'Send Message'}
           </button>
         </form>
       </div>

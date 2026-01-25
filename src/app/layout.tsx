@@ -43,6 +43,11 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google reCAPTCHA v3 */}
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

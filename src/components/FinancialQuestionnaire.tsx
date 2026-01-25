@@ -52,6 +52,7 @@ const FinancialQuestionnaire = () => {
     q15_other: '',
   });
   const [score, setScore] = useState({ powerSaver: 0, riskManager: 0, investmentBuilder: 0 });
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -77,15 +78,70 @@ const FinancialQuestionnaire = () => {
         alert('Please fill in all required fields and agree to the terms.');
         return;
       }
+    } else if (currentStep >= 1 && currentStep <= 14) {
+      // Map step to question field
+      const stepToQuestion: { [key: number]: keyof FormData } = {
+        1: 'q1_savings',
+        2: 'q2_emergency',
+        3: 'q3_disability',
+        4: 'q4_pension',
+        5: 'q5_planner',
+        6: 'q6_will',
+        7: 'q7_poa',
+        8: 'q8_helper',
+        9: 'q9_budget',
+        10: 'q10_invest',
+        11: 'q11_cc_debt',
+        12: 'q12_charity',
+        13: 'q13_diy',
+        14: 'q14_loans',
+      };
+
+      const currentQuestion = stepToQuestion[currentStep];
+      if (!formData[currentQuestion]) {
+        setValidationError('Please answer this question before proceeding.');
+        return;
+      }
     }
+    setValidationError(null);
     setCurrentStep(currentStep + 1);
   };
 
   const handlePrevious = () => {
+    setValidationError(null);
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // Validate that all questions (except q15_other) are answered
+    const requiredQuestions = [
+      'q1_savings',
+      'q2_emergency',
+      'q3_disability',
+      'q4_pension',
+      'q5_planner',
+      'q6_will',
+      'q7_poa',
+      'q8_helper',
+      'q9_budget',
+      'q10_invest',
+      'q11_cc_debt',
+      'q12_charity',
+      'q13_diy',
+      'q14_loans',
+    ];
+
+    const unansweredQuestions = requiredQuestions.filter(
+      (q) => !formData[q as keyof FormData]
+    );
+
+    if (unansweredQuestions.length > 0) {
+      setValidationError('Please answer all questions before submitting.');
+      return;
+    }
+
+    setValidationError(null);
+
     // Calculate scores for 3 categories
     let powerSaverScore = 0;
     let riskManagerScore = 0;
@@ -110,11 +166,40 @@ const FinancialQuestionnaire = () => {
     if (formData.q11_cc_debt === 'No') investmentBuilderScore += 1;
     if (formData.q12_charity === 'Yes') investmentBuilderScore += 1;
 
-    setScore({
+    const score = {
       powerSaver: powerSaverScore,
       riskManager: riskManagerScore,
       investmentBuilder: investmentBuilderScore
-    });
+    };
+
+    // Send questionnaire data to API
+    try {
+      // Execute reCAPTCHA v3
+      const recaptchaToken = await (window as any).grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+        { action: 'questionnaire' }
+      );
+
+      const response = await fetch('/api/questionnaire', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          score,
+          recaptchaToken,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Failed to submit questionnaire');
+      }
+    } catch (error) {
+      console.error('Error submitting questionnaire:', error);
+    }
+
+    setScore(score);
     setCurrentStep(16); // Navigate to results
   };
 
@@ -549,21 +634,28 @@ const FinancialQuestionnaire = () => {
                   Previous
                 </button>
                 
-                {currentStep < 15 ? (
-                  <button
-                    onClick={handleNext}
-                    className="px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
-                  >
-                    Next
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleSubmit}
-                    className="px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
-                  >
-                    Get your results
-                  </button>
-                )}
+                <div className="flex flex-col gap-3 items-end">
+                  {validationError && (
+                    <div className="text-red-600 text-sm font-semibold">
+                      {validationError}
+                    </div>
+                  )}
+                  {currentStep < 15 ? (
+                    <button
+                      onClick={handleNext}
+                      className="px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
+                    >
+                      Next
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleSubmit}
+                      className="px-6 py-3 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200"
+                    >
+                      Get your results
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           )}

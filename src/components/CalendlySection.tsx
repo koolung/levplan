@@ -17,8 +17,16 @@ declare global {
   }
 }
 
-const CalendlySection = () => {
+interface CalendlySectionProps {
+  showBadge?: boolean;
+}
+
+const CalendlySection = ({ showBadge = true }: CalendlySectionProps = {}) => {
   useEffect(() => {
+    if (!showBadge) {
+      return;
+    }
+
     // Load Calendly widget CSS
     const link = document.createElement('link');
     link.href = 'https://assets.calendly.com/assets/external/widget.css';
