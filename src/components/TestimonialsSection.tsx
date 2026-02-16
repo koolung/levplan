@@ -11,6 +11,7 @@ interface Testimonial {
 
 const TestimonialsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [expandedMobile, setExpandedMobile] = useState(false);
 
   const testimonials: Testimonial[] = [
     {
@@ -53,10 +54,12 @@ const TestimonialsSection = () => {
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+    setExpandedMobile(false);
   };
 
   const handleNext = () => {
     setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+    setExpandedMobile(false);
   };
 
   return (
@@ -93,9 +96,21 @@ const TestimonialsSection = () => {
             <div className="transition-all duration-500">
 
               {/* Quote */}
-              <p className="text-lg md:text-xl text-[#ffffff] font-semibold mb-6 italic">
-                "{testimonials[activeIndex].content}"
-              </p>
+              <div className="overflow-hidden transition-all duration-300 ease-in-out">
+                <p className={`text-lg md:text-xl text-[#ffffff] font-semibold mb-6 italic transition-all duration-300 ease-in-out ${
+                  expandedMobile ? 'max-h-none' : 'md:max-h-none max-h-24'
+                }`}>
+                  "{testimonials[activeIndex].content}"
+                </p>
+              </div>
+
+              {/* Show More/Less Button - Mobile Only */}
+              <button
+                onClick={() => setExpandedMobile(!expandedMobile)}
+                className="md:hidden text-[#e7a832] font-semibold text-sm mb-4 hover:opacity-80 transition-opacity duration-200"
+              >
+                {expandedMobile ? 'Show Less' : 'Show More'}
+              </button>
 
               {/* Author */}
               <div>
@@ -126,7 +141,10 @@ const TestimonialsSection = () => {
           {testimonials.map((_, index) => (
             <button
               key={index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => {
+                setActiveIndex(index);
+                setExpandedMobile(false);
+              }}
               className={`h-2 rounded-full transition-all duration-300 ${
                 index === activeIndex
                   ? 'bg-[var(--primary)] w-8'

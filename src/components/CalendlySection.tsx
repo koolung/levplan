@@ -44,7 +44,7 @@ const CalendlySection = ({ showBadge = true }: CalendlySectionProps = {}) => {
       if (window.Calendly) {
         window.Calendly.initBadgeWidget({
           url: 'https://calendly.com/robert-levplan/30min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=002349&text_color=ffffff&primary_color=e7a832',
-          text: 'Schedule Your Call',
+          text: '15 Min Discovery Call',
           color: '#002349',
           textColor: '#ffffff',
           branding: true

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LevPlan - Personalized Financial Planning",
+  title: "Get your retirement start date",
   description: "Expert financial planning for Canadians. Get your personalized retirement, debt, investment, and insurance plan for free.",
 };
 

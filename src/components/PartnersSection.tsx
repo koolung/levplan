@@ -4,16 +4,17 @@ import Image from 'next/image';
 
 const PartnersSection = () => {
   const partners = [
-    { name: 'Questrade', logo: '/images/partner_logos/Questrade_logo.svg.png' },
-    { name: 'Wealthsimple', logo: '/images/partner_logos/wealthsimple.svg' },
-    { name: 'RBC Insurance', logo: '/images/partner_logos/rbc.jpg' },
-    { name: 'Canada Life', logo: '/images/partner_logos/canadalife.png' },
-    { name: 'Empire Life', logo: '/images/partner_logos/empirelife.png' },
     { name: 'Nest Wealth', logo: '/images/partner_logos/nestwealth.png' },
-    { name: 'Just Wealth', logo: '/images/partner_logos/justwealth.png' },
-    { name: 'Blue Cross', logo: '/images/partner_logos/bluecross.png' },
-    { name: 'Manulife', logo: '/images/partner_logos/manulife.png' },
+    { name: 'PPI', logo: '/images/partner_logos/ppi.png' },
+    { name: 'Assumption Life', logo: '/images/partner_logos/assumption.png' },
     { name: 'IA Financial', logo: '/images/partner_logos/iafinancial.jpg' },
+    { name: 'Manulife', logo: '/images/partner_logos/manulife.png' },
+    { name: 'Canada Life', logo: '/images/partner_logos/canadalife.png' },
+    { name: 'Canada Protection Plan', logo: '/images/partner_logos/cpp.png' },
+    { name: 'Empire Life', logo: '/images/partner_logos/empirelife.png' },
+    { name: 'RBC Insurance', logo: '/images/partner_logos/rbc.jpg' },
+    { name: 'Razorplan', logo: '/images/partner_logos/razorplan.png' },
+    { name: 'Blue Cross', logo: '/images/partner_logos/bluecross.png' },
   ];
 
   return (

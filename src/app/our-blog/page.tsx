@@ -16,6 +16,7 @@ interface BlogArticle {
   category: string;
   readTime: string;
   publishedAt: Date;
+  coverImage: string | null;
 }
 
 export default async function Blog() {
@@ -32,6 +33,7 @@ export default async function Blog() {
         category: true,
         readTime: true,
         publishedAt: true,
+        coverImage: true,
       },
     });
   } catch (error) {
@@ -75,35 +77,65 @@ export default async function Blog() {
       </section>
 
       <section className="py-16 px-4 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="space-y-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {articles.length > 0 ? (
               articles.map((article) => (
                 <Link key={article.id} href={`/our-blog/${article.slug}`}>
                   <article
-                    className="p-6 md:p-8 bg-[#f6f6f6] shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                    className="h-full bg-white border border-[#e0e0e0] shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden flex flex-col"
                   >
-                    <div className="flex flex-col gap-4 mb-3">
-                      <h2 className="text-2xl font-bold text-[#031931]">
-                        {article.title}
-                      </h2>
-                      <span className="text-sm font-semibold text-white bg-[#002349] px-3 py-1 whitespace-nowrap w-fit">
+                    {/* Image */}
+                    <div className="relative h-48 bg-gradient-to-br from-[#002349] to-[#e7a832] overflow-hidden">
+                      {article.coverImage ? (
+                        <img
+                          src={article.coverImage}
+                          alt={article.title}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-white text-center px-4">
+                          <span className="text-sm font-semibold">{article.title}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 flex flex-col flex-grow">
+                      {/* Category Badge */}
+                      <span className="text-sm font-semibold text-white bg-[#002349] px-3 py-1 whitespace-nowrap w-fit mb-4">
                         {article.category}
                       </span>
-                    </div>
-                    <p className="text-[#5a5a57] mb-4 leading-relaxed">
-                      {article.excerpt}
-                    </p>
-                    <div className="flex gap-4 text-sm text-[#5a5a57]">
-                      <span>{formatDate(article.publishedAt)}</span>
-                      <span>•</span>
-                      <span>{article.readTime}</span>
+
+                      {/* Date and Read Time */}
+                      <div className="flex gap-4 text-xs text-[#5a5a57] mb-3">
+                        <span>{formatDate(article.publishedAt)}</span>
+                        <span>•</span>
+                        <span>{article.readTime}</span>
+                      </div>
+
+                      {/* Title */}
+                      <h2 className="text-lg font-bold text-[#031931] mb-3 line-clamp-2">
+                        {article.title}
+                      </h2>
+
+                      {/* Description */}
+                      <p className="text-[#5a5a57] leading-relaxed text-sm line-clamp-3 flex-grow">
+                        {article.excerpt}
+                      </p>
+
+                      {/* Read More Link */}
+                      <div className="mt-4 pt-4 border-t border-[#e0e0e0]">
+                        <span className="text-[#002349] font-semibold text-sm hover:text-[#e7a832] transition-colors duration-200">
+                          Read More →
+                        </span>
+                      </div>
                     </div>
                   </article>
                 </Link>
               ))
             ) : (
-              <div className="text-center py-12">
+              <div className="text-center py-12 col-span-full">
                 <p className="text-[#5a5a57] text-lg">No blog posts yet. Check back soon!</p>
               </div>
             )}
