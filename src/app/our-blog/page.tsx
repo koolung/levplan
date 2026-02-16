@@ -140,14 +140,6 @@ export default async function Blog() {
               </div>
             )}
           </div>
-
-          {articles.length > 0 && (
-            <div className="mt-12 text-center">
-              <button className="px-8 py-3 bg-[#002349] text-white uppercase font-light hover:shadow-lg transition-shadow duration-300">
-                Load More Articles
-              </button>
-            </div>
-          )}
         </div>
       </section>
       <Footer />
