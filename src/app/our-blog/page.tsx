@@ -3,6 +3,9 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
+// Disable caching - always fetch fresh blog posts from database
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Our Blog - LevPlan',
   description: 'Financial tips, strategies, and insights from LevPlan experts.',
