@@ -1,9 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import MobileNav from './MobileNav';
 import Footer from './Footer';
+import { getProfilePath, getProfileName } from '@/lib/profileHelper';
 
 interface ResultsPageProps {
   score: {
@@ -15,51 +15,43 @@ interface ResultsPageProps {
 
 const ResultsPage = ({ score }: ResultsPageProps) => {
   const router = useRouter();
+  const profilePath = getProfilePath(score);
+  const profileName = getProfileName(score);
 
-  // Determine which result to display
-  // 1 point = Starter, 2-3 points = Accumulator, 4 points = Achiever
-  useEffect(() => {
-    // Find the highest score to determine the category
-    const scores = [
-      { type: 'power-saver', score: score.powerSaver },
-      { type: 'risk-manager', score: score.riskManager },
-      { type: 'investment-builder', score: score.investmentBuilder },
-    ];
-
-    // Sort by score (descending) to find the highest
-    const sorted = scores.sort((a, b) => b.score - a.score);
-    const highestCategory = sorted[0].type;
-    const highestScore = sorted[0].score;
-
-    // Determine the level (1 = starter, 2-3 = accumulator, 4 = achiever)
-    let level = 1;
-    if (highestScore >= 4) level = 3;
-    else if (highestScore >= 2) level = 2;
-    else level = 1;
-
-    // Navigate to the appropriate result page
-    const resultPath = `/results/${highestCategory}-${level}`;
-    router.push(resultPath);
-  }, [score, router]);
+  const handleViewProfile = () => {
+    router.push(profilePath);
+  };
 
   return (
     <main className="w-full bg-white">
       <MobileNav />
 
-      {/* Loading Section */}
+      {/* Results Section */}
       <section className="min-h-screen pt-32 md:pt-24 pb-16 px-4 bg-gradient-to-b from-[#f9f8f6] to-white flex items-center justify-center">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-[#031931] mb-6">
-            Analyzing Your Results...
+            Your Assessment Complete
           </h1>
-          <p className="text-lg text-[#5a5a57] mb-8">
-            We're personalizing your financial assessment based on your answers.
+          <p className="text-lg text-[#5a5a57] mb-4">
+            Based on your responses, your primary financial profile is:
           </p>
           
-          {/* Loading animation */}
-          <div className="flex justify-center">
-            <div className="w-12 h-12 border-4 border-[#e7a832] border-t-[#031931] rounded-full animate-spin"></div>
+          <div className="mb-8">
+            <div className="inline-block bg-[#e7a832] text-white px-8 py-4 rounded-lg text-3xl font-bold mb-8">
+              {profileName}
+            </div>
           </div>
+
+          <p className="text-base text-[#5a5a57] mb-12 max-w-2xl mx-auto">
+            Click below to view your personalized financial profile and recommendations tailored to your unique situation.
+          </p>
+          
+          <button
+            onClick={handleViewProfile}
+            className="px-8 py-4 bg-[#e7a832] text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200 text-lg"
+          >
+            View Your Profile
+          </button>
         </div>
       </section>
 

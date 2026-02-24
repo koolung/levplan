@@ -7,31 +7,44 @@ import Link from 'next/link';
 
 const RiskManager1Page = () => {
   return (
-    <main className="w-full bg-white">
+    <main 
+      className="w-full"
+      style={{
+        backgroundImage: 'url(/images/result-bg.webp)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       <MobileNav />
 
       {/* Hero Section */}
-      <section className="pt-32 md:pt-24 pb-12 px-4 bg-gradient-to-b from-[#f9f8f6] to-white">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="pt-32 md:pt-24 pb-12 px-4 bg-transparent">
+        <div className="max-w-4xl mx-auto text-center bg-[#ffffff8c]  p-8 md:p-12 backdrop-blur-sm rounded-xl">
           <h1 className="text-4xl md:text-5xl font-bold text-[#031931] mb-4">
             Risk Manager: Starter
           </h1>
           <p className="text-lg text-[#5a5a57]">
-            Your risk management foundation needs attention
+            You're beginning to build protective strategies
           </p>
         </div>
       </section>
 
       {/* Results Content */}
-      <section className="py-12 md:py-20 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-12 md:py-20 px-4 bg-transparent">
+        <div className="max-w-4xl mx-auto" style={{
+          backgroundColor: '#ffffff8c',
+          backdropFilter: 'blur(21px)',
+          borderRadius: '15px',
+          padding: '5px 5%'
+        }}>
           {/* Speedometer */}
           <div className="mb-12">
             <Speedometer currentLevel={1} />
           </div>
 
           {/* Description */}
-          <div className="bg-[transparent] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm">
+          <div className="bg-[#ffffff54] border-[#e7a832] border-2 p-8 md:p-12 mb-12 backdrop-blur-sm rounded-xl">
             <h2 className="text-3xl md:text-4xl font-bold text-[#031931] mb-6">
               Your risk management foundation needs attention.
             </h2>

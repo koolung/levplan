@@ -38,14 +38,16 @@ const Speedometer = ({ currentLevel }: SpeedometerProps) => {
     <div className="flex flex-col items-center justify-center my-12">
       <style>{`
         .meter {
-          background-color: white;
-          padding: 10px 20px;
+          background-color: #ffffff54;
+          padding: 15px 15px;
           position: relative;
           display: block;
           width: 340px;
           margin: 20px auto;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           border: 1px solid #e7a832;
+          backdrop-blur-sm;
+          border-radius: 15px;
         }
 
         #meter {

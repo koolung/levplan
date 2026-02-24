@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { generateQuestionnaireEmailHTML } from '@/lib/questionnaireEmailTemplate';
+import { getProfilePath, getProfileName } from '@/lib/profileHelper';
 
 // Configure your SMTP transporter
 const transporter = nodemailer.createTransport({
@@ -89,6 +90,9 @@ export async function POST(request: NextRequest) {
 
     // Generate email HTML
     const emailHtml = generateQuestionnaireEmailHTML(body);
+    const profilePath = getProfilePath(body.score);
+    const profileName = getProfileName(body.score);
+    const profileUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://levplan.com'}${profilePath}`;
 
     // Send email to robert@levplan.com
     await transporter.sendMail({
@@ -96,7 +100,7 @@ export async function POST(request: NextRequest) {
       to: 'robert@levplan.com',
       subject: `Financial Assessment Completed by ${body.name}`,
       html: emailHtml,
-      text: `Financial Assessment Submission\n\nName: ${body.name}\nEmail: ${body.email}\nPhone: ${body.phone || 'Not provided'}\n\nAssessment Scores:\nPower Saver: ${body.score.powerSaver}/4\nRisk Manager: ${body.score.riskManager}/4\nInvestment Builder: ${body.score.investmentBuilder}/4`,
+      text: `Financial Assessment Submission\n\nName: ${body.name}\nEmail: ${body.email}\nPhone: ${body.phone || 'Not provided'}\n\nPrimary Profile: ${profileName}\n\nView Profile: ${profileUrl}`,
       replyTo: body.email,
       headers: {
         'X-Mailer': 'LevPlan Assessment',
@@ -239,26 +243,24 @@ export async function POST(request: NextRequest) {
             </p>
             
             <div class="score-summary">
-              <div class="score-title">Your Assessment Results</div>
-              <ul class="score-list">
-                <li>
-                  <span>Power Saver</span>
-                  <span class="score-badge">${body.score.powerSaver}/4</span>
-                </li>
-                <li>
-                  <span>Risk Manager</span>
-                  <span class="score-badge">${body.score.riskManager}/4</span>
-                </li>
-                <li>
-                  <span>Investment Builder</span>
-                  <span class="score-badge">${body.score.investmentBuilder}/4</span>
-                </li>
-              </ul>
+              <div class="score-title">Your Profile</div>
+              <div style="text-align: center; padding: 20px 0;">
+                <span class="score-badge" style="font-size: 16px; padding: 8px 20px; display: inline-block;">${profileName}</span>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${profileUrl}" style="display: inline-block; background: #e7a832; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">
+                View Your Profile
+              </a>
             </div>
 
             <p style="color: #5a5a57; font-size: 14px; line-height: 1.8;">
-              These scores reflect your financial habits and priorities across three key areas. Our advisors will use this information to provide personalized recommendations tailored to your unique situation.
+              Based on your responses, your primary financial profile is <strong>${profileName}</strong>. Our advisors will use this information to provide personalized recommendations tailored to your unique situation. <br><br>
+              If you wish to learn more about your results, please click on the button above.
             </p>
+
+
 
             <div class="divider"></div>
 
@@ -285,7 +287,7 @@ export async function POST(request: NextRequest) {
       to: body.email,
       subject: 'Your LevPlan Assessment Results',
       html: confirmationHtml,
-      text: `Thank you for completing the LevPlan financial assessment!\n\nYour Results:\nPower Saver: ${body.score.powerSaver}/4\nRisk Manager: ${body.score.riskManager}/4\nInvestment Builder: ${body.score.investmentBuilder}/4\n\nOur team will be in touch soon.\n\nBest regards,\nThe LevPlan Team\n\nVisit us at https://levplan.com`,
+      text: `Thank you for completing the LevPlan financial assessment!\n\nYour Profile: ${profileName}\n\nView your full profile and recommendations: ${profileUrl}\n\nOur team will be in touch soon.\n\nBest regards,\nThe LevPlan Team\n\nVisit us at https://levplan.com`,
       headers: {
         'X-Mailer': 'LevPlan',
         'X-Priority': '3',
